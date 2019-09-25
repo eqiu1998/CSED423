@@ -5,7 +5,7 @@
 /*
  *  Stuff enclosed in %{ %} in the first section is copied verbatim to the
  *  output, so headers and global definitions are placed here to be visible
- * to the code in the file.  Don't remove anything that was here initially
+ * to the code in the file.  Dont remove anything that was here initially
  */
 %{
 #include <cool-parse.h>
@@ -42,6 +42,8 @@ extern YYSTYPE cool_yylval;
  *  Add Your own definitions here
  */
 
+int commentLevel = 0;
+
 %}
 
 %option noyywrap
@@ -51,6 +53,13 @@ extern YYSTYPE cool_yylval;
  */
 
 digit       [0-9]
+symbol      "+"|"-"|"*"|"/"|"~"|"<"|"="|"("|")"|"{"|"}"|";"|":"|"."|","|"@"
+typeid      [A-Z][a-zA-Z0-9_]*
+objid		    [a-z][a-zA-Z0-9_]*
+whitespace  [ \r\t]
+
+ /*** State Definitions ***/
+%x CMT STR DEAD_STR
 
 %%
 
@@ -68,5 +77,141 @@ digit       [0-9]
   *   - Line counting: You should keep the global variable curr_lineno updated
   *     with the correct line number
   */
+
+ /*** Keywords ***/
+(?i:class)      return CLASS;
+(?i:else)       return ELSE;
+(?i:fi)         return FI;
+(?i:if)			    return IF;
+(?i:in)			    return IN;
+(?i:inherits)		return INHERITS;
+(?i:let)        return LET;
+(?i:loop)		    return LOOP;
+(?i:pool)		    return POOL;
+(?i:then)		    return THEN;
+(?i:while)		  return WHILE;
+(?i:case)		    return CASE;
+(?i:esac)		    return ESAC;
+(?i:of)			    return OF;
+(?i:new)		    return NEW;
+(?i:isvoid)		  return ISVOID;
+(?i:not)		    return NOT;
+(t)(?i:rue)		  {
+                  cool_yylval.boolean = true;
+                  return BOOL_CONST;
+                }
+(f)(?i:alse)	  {
+                  cool_yylval.boolean = false;
+                  return BOOL_CONST;
+                }
+
+"=>"			      return DARROW;
+"<-"			      return ASSIGN;
+"<="			      return LE;
+
+ /*** Single-chars ***/
+{symbol}        return int(yytext[0]);
+
+ /*** Comments ***/
+"(*"		{
+          ++commentLevel;
+          BEGIN(CMT);				
+        }
+"*)"    {
+          cool_yylval.error_msg = "Unmatched *)";
+				  return ERROR;
+        }
+
+(--)(.)*
+
+<CMT>"(*"   ++commentLevel;
+<CMT>"*)"   {
+                  if(!--commentLevel) BEGIN(INITIAL);
+                  if(commentLevel < 0) {
+                    cool_yylval.error_msg = "Unmatched *)";
+					          commentLevel=0;
+                    return ERROR;
+                  }
+                }
+<CMT>\n     ++curr_lineno;
+<CMT>(.|{whitespace}+)
+<CMT><<EOF>>	{
+                    BEGIN(INITIAL);
+                    if(commentLevel>0){
+                      cool_yylval.error_msg = "EOF in comment";
+                      commentLevel=0;
+                      return ERROR;
+                    }
+                  }
+
+ /*** Strings ***/
+"\""            {
+                  string_buf_ptr = string_buf;
+                  BEGIN(STR);
+                }
+<STR>"\""    {
+                  if(string_buf_ptr - string_buf > MAX_STR_CONST-1){
+                    *string_buf = '\0';
+                    cool_yylval.error_msg = "String constant too long";
+                    BEGIN(DEAD_STR);
+                    return ERROR;
+                  }
+                  *string_buf_ptr = '\0';
+                  cool_yylval.symbol = stringtable.add_string(string_buf);
+                  BEGIN(INITIAL);
+                  return STR_CONST;
+                }
+
+<STR><<EOF>>		{
+                    cool_yylval.error_msg = "EOF in string constant";
+                    BEGIN(INITIAL);
+                    return ERROR;
+                  }
+<STR>\0		{
+                *string_buf = '\0';
+                cool_yylval.error_msg = "String contains null character";
+                BEGIN(DEAD_STR);
+                return ERROR;
+              }
+<STR>\n		{
+                *string_buf = '\0';
+                cool_yylval.error_msg = "Unterminated string constant";
+                BEGIN(INITIAL);
+                return ERROR;
+              }
+
+<STR>\\b       *string_buf_ptr++ = '\b';
+<STR>\\t       *string_buf_ptr++ = '\t';
+<STR>\\n       *string_buf_ptr++ = '\n';
+<STR>\\f       *string_buf_ptr++ = '\f';
+<STR>\\[^\0]	 *string_buf_ptr++ = yytext[1];
+<STR>.         *string_buf_ptr++ = yytext[0];
+
+<DEAD_STR>(\n|\")		BEGIN(INITIAL);
+<DEAD_STR>.	
+
+ /*** Identifiers ***/
+{digit}+		    {
+                  cool_yylval.symbol = inttable.add_string(yytext);
+                  return INT_CONST;
+                }
+{typeid}		    {
+                  cool_yylval.symbol = idtable.add_string(yytext);
+                  return TYPEID;
+                }
+{objid} 	      {
+                  cool_yylval.symbol = idtable.add_string(yytext);
+                  return OBJECTID;
+                }
+
+ /*** whitespace ***/
+\n		curr_lineno++;
+{whitespace}+
+
+ /*** invalid ***/
+.		{
+			cool_yylval.error_msg = yytext;
+			return ERROR;
+		}
 
 %%
