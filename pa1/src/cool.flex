@@ -153,7 +153,7 @@ whitespace  [ \r\t\f\v]
                   if(string_buf_ptr - string_buf > MAX_STR_CONST-1){
                     *string_buf = '\0';
                     cool_yylval.error_msg = "String constant too long";
-                    BEGIN(DEAD_STR);
+                    BEGIN(INITIAL);
                     return ERROR;
                   }
                   *string_buf_ptr = '\0';
@@ -169,7 +169,7 @@ whitespace  [ \r\t\f\v]
                   }
 <STR>\0		{
                 *string_buf = '\0';
-                cool_yylval.error_msg = "String contains null character";
+                cool_yylval.error_msg = "String contains null character.";
                 BEGIN(DEAD_STR);
                 return ERROR;
               }
@@ -182,13 +182,16 @@ whitespace  [ \r\t\f\v]
 
 <STR>\\b       *string_buf_ptr++ = '\b';
 <STR>\\t       *string_buf_ptr++ = '\t';
-<STR>\\n       *string_buf_ptr++ = '\n';
+<STR>"\\n"     *string_buf_ptr++ = '\n';
+<STR>"\\\n"    *string_buf_ptr++ = '\n'; ++curr_lineno;
 <STR>\\f       *string_buf_ptr++ = '\f';
 <STR>\\[^\0]	 *string_buf_ptr++ = yytext[1];
 <STR>.         *string_buf_ptr++ = yytext[0];
 
-<DEAD_STR>(\n|\")		BEGIN(INITIAL);
-<DEAD_STR>.	
+<DEAD_STR>"\\\""
+<DEAD_STR>\"		BEGIN(INITIAL);
+<DEAD_STR>\n    ++curr_lineno; BEGIN(INITIAL);
+<DEAD_STR>.
 
  /*** Identifiers ***/
 {digit}+		    {
@@ -205,7 +208,7 @@ whitespace  [ \r\t\f\v]
                 }
 
  /*** whitespace ***/
-\n		curr_lineno++;
+\n		++curr_lineno;
 {whitespace}+
 
  /*** invalid ***/
