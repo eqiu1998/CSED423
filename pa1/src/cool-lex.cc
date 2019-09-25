@@ -482,7 +482,7 @@ static yyconst flex_int16_t yy_accept[177] =
 static yyconst flex_int32_t yy_ec[256] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    2,    3,
-        1,    1,    2,    1,    1,    1,    1,    1,    1,    1,
+        2,    2,    2,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    2,    1,    4,    1,    1,    1,    1,    1,    5,
         6,    7,    8,    9,   10,   11,   12,   13,   13,   13,
@@ -1344,7 +1344,7 @@ case 34:
 /* rule 34 can match eol */
 YY_RULE_SETUP
 #line 176 "cool.flex"
-{
+{     ++curr_lineno;
                 *string_buf = '\0';
                 cool_yylval.error_msg = "Unterminated string constant";
                 BEGIN(INITIAL);

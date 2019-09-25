@@ -1,12 +1,12 @@
-/*
- *  The scanner definition for COOL.
- */
+ /*
+  *  The scanner definition for COOL.
+  */
 
-/*
- *  Stuff enclosed in %{ %} in the first section is copied verbatim to the
- *  output, so headers and global definitions are placed here to be visible
- * to the code in the file.  Dont remove anything that was here initially
- */
+ /*
+  *  Stuff enclosed in %{ %} in the first section is copied verbatim to the
+  *  output, so headers and global definitions are placed here to be visible
+  * to the code in the file.  Don't remove anything that was here initially
+  */
 %{
 #include <cool-parse.h>
 #include <stringtab.h>
@@ -56,7 +56,7 @@ digit       [0-9]
 symbol      "+"|"-"|"*"|"/"|"~"|"<"|"="|"("|")"|"{"|"}"|";"|":"|"."|","|"@"
 typeid      [A-Z][a-zA-Z0-9_]*
 objid		    [a-z][a-zA-Z0-9_]*
-whitespace  [ \r\t]
+whitespace  [ \r\t\f\v]
 
  /*** State Definitions ***/
 %x CMT STR DEAD_STR
@@ -173,7 +173,7 @@ whitespace  [ \r\t]
                 BEGIN(DEAD_STR);
                 return ERROR;
               }
-<STR>\n		{
+<STR>\n		{     ++curr_lineno;
                 *string_buf = '\0';
                 cool_yylval.error_msg = "Unterminated string constant";
                 BEGIN(INITIAL);
