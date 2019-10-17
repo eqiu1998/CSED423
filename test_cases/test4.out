@@ -1,0 +1,25 @@
+#name "test4.cl"
+#1 OBJECTID classs
+#1 TYPEID Doom
+#1 '{'
+#2 OBJECTID i
+#2 ':'
+#2 TYPEID Int
+#2 ASSIGN
+#2 INT_CONST 0
+#2 ';'
+#3 OBJECTID main
+#3 '('
+#3 ')'
+#3 ':'
+#3 TYPEID Object
+#3 '{'
+#4 IF
+#4 OBJECTID i
+#4 '='
+#4 INT_CONST 0
+#4 THEN
+#4 OBJECTID out_string
+#4 '('
+#4 STR_CONST "This is da real *h*t"
+#4 ')'

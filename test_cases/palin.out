@@ -1,0 +1,121 @@
+#name "palin.cl"
+#1 CLASS
+#1 TYPEID Main
+#1 INHERITS
+#1 TYPEID IO
+#1 '{'
+#2 OBJECTID main
+#2 '('
+#2 ')'
+#2 ':'
+#2 TYPEID Object
+#2 '{'
+#3 '{'
+#4 OBJECTID out_string
+#4 '('
+#4 STR_CONST "Enter string to check for palindrome\n"
+#4 ')'
+#4 ';'
+#5 LET
+#5 OBJECTID str
+#5 ':'
+#5 TYPEID String
+#5 ASSIGN
+#5 OBJECTID in_string
+#5 '('
+#5 ')'
+#5 IN
+#6 IF
+#6 '('
+#6 OBJECTID str
+#6 '='
+#6 OBJECTID reverse
+#6 '('
+#6 OBJECTID str
+#6 ')'
+#6 ')'
+#6 THEN
+#7 OBJECTID out_string
+#7 '('
+#7 STR_CONST "String is a Palindrome\n"
+#7 ')'
+#8 ELSE
+#9 OBJECTID out_string
+#9 '('
+#9 STR_CONST "String is not a Palindrome\n"
+#9 ')'
+#10 FI
+#10 ';'
+#11 '}'
+#12 '}'
+#12 ';'
+#14 OBJECTID reverse
+#14 '('
+#14 OBJECTID str
+#14 ':'
+#14 TYPEID String
+#14 ')'
+#14 ':'
+#14 TYPEID String
+#14 '{'
+#15 IF
+#15 '('
+#15 OBJECTID str
+#15 '.'
+#15 OBJECTID length
+#15 '('
+#15 ')'
+#15 '='
+#15 INT_CONST 1
+#15 ')'
+#15 THEN
+#15 OBJECTID str
+#16 ELSE
+#16 '('
+#16 NEW
+#16 TYPEID String
+#16 ')'
+#16 '.'
+#16 OBJECTID concat
+#16 '('
+#16 OBJECTID str
+#16 '.'
+#16 OBJECTID substr
+#16 '('
+#16 OBJECTID str
+#16 '.'
+#16 OBJECTID length
+#16 '('
+#16 ')'
+#16 '-'
+#16 INT_CONST 1
+#16 ','
+#16 INT_CONST 1
+#16 ')'
+#16 ')'
+#16 '.'
+#16 OBJECTID concat
+#16 '('
+#16 OBJECTID reverse
+#16 '('
+#16 OBJECTID str
+#16 '.'
+#16 OBJECTID substr
+#16 '('
+#16 INT_CONST 0
+#16 ','
+#16 OBJECTID str
+#16 '.'
+#16 OBJECTID length
+#16 '('
+#16 ')'
+#16 '-'
+#16 INT_CONST 1
+#16 ')'
+#16 ')'
+#16 ')'
+#17 FI
+#18 '}'
+#18 ';'
+#19 '}'
+#19 ';'

@@ -1,0 +1,5 @@
+#!/bin/bash -v
+
+for file in *.cl; do ../src/lexer  "$file" > "${file/%cl/out}"; done
+for file in *.cl; do ../src/reflex  "$file" > "${file/%cl/ref}"; done
+for file in *.out; do diff "$file" "${file/%out/ref}"; done

@@ -1,0 +1,29 @@
+#name "hello2.cl"
+#2 ERROR "Unmatched *)"
+#6 CLASS
+#6 TYPEID Main
+#6 '{'
+#7 OBJECTID a
+#7 ':'
+#7 TYPEID Int
+#7 ';'
+#8 OBJECTID main
+#8 '('
+#8 ')'
+#8 ':'
+#8 TYPEID IO
+#8 '{'
+#9 OBJECTID a
+#9 ASSIGN
+#9 INT_CONST 3
+#10 NEW
+#10 TYPEID IO
+#10 '.'
+#10 OBJECTID out_string
+#10 '('
+#11 STR_CONST "Hello\n world!\n"
+#11 ')'
+#12 '}'
+#12 ';'
+#13 '}'
+#13 ';'

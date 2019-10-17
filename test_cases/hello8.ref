@@ -1,0 +1,29 @@
+#name "hello8.cl"
+#7 CLASS
+#7 TYPEID Main
+#7 '{'
+#8 OBJECTID a
+#8 ERROR "$"
+#8 ':'
+#8 TYPEID Int
+#8 ';'
+#9 OBJECTID main
+#9 '('
+#9 ')'
+#9 ':'
+#9 TYPEID IO
+#9 '{'
+#10 OBJECTID a
+#10 ASSIGN
+#10 INT_CONST 3
+#11 NEW
+#11 TYPEID IO
+#11 '.'
+#11 OBJECTID out_string
+#11 '('
+#12 STR_CONST "Hello\n world!\n"
+#12 ')'
+#13 '}'
+#13 ';'
+#14 '}'
+#14 ';'
