@@ -1,5 +1,7 @@
 #!/bin/bash -v
 
-for file in *.cl; do ../src/lexer  "$file" > "${file/%cl/out}"; done
-for file in *.cl; do ../src/reflex  "$file" > "${file/%cl/ref}"; done
+for file in *.cl; do ../pa1/src/lexer  "$file" > "${file/%cl/tk}"; done
+for file in *.cl; do ~/cool-ref-binary/lexer  "$file" > "${file/%cl/rtk}"; done
+for file in *.rtk; do ~/cool-ref-binary/parser  "$file" > "${file/%rtk/ref}"; done
+for file in *.tk; do ../pa2/src/parser  "$file" > "${file/%tk/out}"; done
 for file in *.out; do diff "$file" "${file/%out/ref}"; done
