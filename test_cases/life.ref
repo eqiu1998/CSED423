@@ -1,1452 +1,2859 @@
-#name "life.cl"
-#45 CLASS
-#45 TYPEID Board
-#45 INHERITS
-#45 TYPEID IO
-#45 '{'
-#47 OBJECTID rows
-#47 ':'
-#47 TYPEID Int
-#47 ';'
-#48 OBJECTID columns
-#48 ':'
-#48 TYPEID Int
-#48 ';'
-#49 OBJECTID board_size
-#49 ':'
-#49 TYPEID Int
-#49 ';'
-#51 OBJECTID size_of_board
-#51 '('
-#51 OBJECTID initial
-#51 ':'
-#51 TYPEID String
-#51 ')'
-#51 ':'
-#51 TYPEID Int
-#51 '{'
-#52 OBJECTID initial
-#52 '.'
-#52 OBJECTID length
-#52 '('
-#52 ')'
-#53 '}'
-#53 ';'
-#55 OBJECTID board_init
-#55 '('
-#55 OBJECTID start
-#55 ':'
-#55 TYPEID String
-#55 ')'
-#55 ':'
-#55 TYPEID SELF_TYPE
-#55 '{'
-#56 '('
-#56 LET
-#56 OBJECTID size
-#56 ':'
-#56 TYPEID Int
-#56 ASSIGN
-#56 OBJECTID size_of_board
-#56 '('
-#56 OBJECTID start
-#56 ')'
-#56 IN
-#57 '{'
-#58 IF
-#58 OBJECTID size
-#58 '='
-#58 INT_CONST 15
-#58 THEN
-#59 '{'
-#60 OBJECTID rows
-#60 ASSIGN
-#60 INT_CONST 3
-#60 ';'
-#61 OBJECTID columns
-#61 ASSIGN
-#61 INT_CONST 5
-#61 ';'
-#62 OBJECTID board_size
-#62 ASSIGN
-#62 OBJECTID size
-#62 ';'
-#63 '}'
-#64 ELSE
-#64 IF
-#64 OBJECTID size
-#64 '='
-#64 INT_CONST 16
-#64 THEN
-#65 '{'
-#66 OBJECTID rows
-#66 ASSIGN
-#66 INT_CONST 4
-#66 ';'
-#67 OBJECTID columns
-#67 ASSIGN
-#67 INT_CONST 4
-#67 ';'
-#68 OBJECTID board_size
-#68 ASSIGN
-#68 OBJECTID size
-#68 ';'
-#69 '}'
-#70 ELSE
-#70 IF
-#70 OBJECTID size
-#70 '='
-#70 INT_CONST 20
-#70 THEN
-#71 '{'
-#72 OBJECTID rows
-#72 ASSIGN
-#72 INT_CONST 4
-#72 ';'
-#73 OBJECTID columns
-#73 ASSIGN
-#73 INT_CONST 5
-#73 ';'
-#74 OBJECTID board_size
-#74 ASSIGN
-#74 OBJECTID size
-#74 ';'
-#75 '}'
-#76 ELSE
-#76 IF
-#76 OBJECTID size
-#76 '='
-#76 INT_CONST 21
-#76 THEN
-#77 '{'
-#78 OBJECTID rows
-#78 ASSIGN
-#78 INT_CONST 3
-#78 ';'
-#79 OBJECTID columns
-#79 ASSIGN
-#79 INT_CONST 7
-#79 ';'
-#80 OBJECTID board_size
-#80 ASSIGN
-#80 OBJECTID size
-#80 ';'
-#81 '}'
-#82 ELSE
-#82 IF
-#82 OBJECTID size
-#82 '='
-#82 INT_CONST 25
-#82 THEN
-#83 '{'
-#84 OBJECTID rows
-#84 ASSIGN
-#84 INT_CONST 5
-#84 ';'
-#85 OBJECTID columns
-#85 ASSIGN
-#85 INT_CONST 5
-#85 ';'
-#86 OBJECTID board_size
-#86 ASSIGN
-#86 OBJECTID size
-#86 ';'
-#87 '}'
-#88 ELSE
-#88 IF
-#88 OBJECTID size
-#88 '='
-#88 INT_CONST 28
-#88 THEN
-#89 '{'
-#90 OBJECTID rows
-#90 ASSIGN
-#90 INT_CONST 7
-#90 ';'
-#91 OBJECTID columns
-#91 ASSIGN
-#91 INT_CONST 4
-#91 ';'
-#92 OBJECTID board_size
-#92 ASSIGN
-#92 OBJECTID size
-#92 ';'
-#93 '}'
-#94 ELSE
-#95 '{'
-#96 OBJECTID rows
-#96 ASSIGN
-#96 INT_CONST 5
-#96 ';'
-#97 OBJECTID columns
-#97 ASSIGN
-#97 INT_CONST 5
-#97 ';'
-#98 OBJECTID board_size
-#98 ASSIGN
-#98 OBJECTID size
-#98 ';'
-#99 '}'
-#100 FI
-#100 FI
-#100 FI
-#100 FI
-#100 FI
-#100 FI
-#100 ';'
-#101 OBJECTID self
-#101 ';'
-#102 '}'
-#103 ')'
-#104 '}'
-#104 ';'
-#106 '}'
-#106 ';'
-#110 CLASS
-#110 TYPEID CellularAutomaton
-#110 INHERITS
-#110 TYPEID Board
-#110 '{'
-#111 OBJECTID population_map
-#111 ':'
-#111 TYPEID String
-#111 ';'
-#113 OBJECTID init
-#113 '('
-#113 OBJECTID map
-#113 ':'
-#113 TYPEID String
-#113 ')'
-#113 ':'
-#113 TYPEID SELF_TYPE
-#113 '{'
-#114 '{'
-#115 OBJECTID population_map
-#115 ASSIGN
-#115 OBJECTID map
-#115 ';'
-#116 OBJECTID board_init
-#116 '('
-#116 OBJECTID map
-#116 ')'
-#116 ';'
-#117 OBJECTID self
-#117 ';'
-#118 '}'
-#119 '}'
-#119 ';'
-#124 OBJECTID print
-#124 '('
-#124 ')'
-#124 ':'
-#124 TYPEID SELF_TYPE
-#124 '{'
-#126 '('
-#126 LET
-#126 OBJECTID i
-#126 ':'
-#126 TYPEID Int
-#126 ASSIGN
-#126 INT_CONST 0
-#126 IN
-#127 '('
-#127 LET
-#127 OBJECTID num
-#127 ':'
-#127 TYPEID Int
-#127 ASSIGN
-#127 OBJECTID board_size
-#127 IN
-#128 '{'
-#129 OBJECTID out_string
-#129 '('
-#129 STR_CONST "\n"
-#129 ')'
-#129 ';'
-#130 WHILE
-#130 OBJECTID i
-#130 '<'
-#130 OBJECTID num
-#130 LOOP
-#131 '{'
-#132 OBJECTID out_string
-#132 '('
-#132 OBJECTID population_map
-#132 '.'
-#132 OBJECTID substr
-#132 '('
-#132 OBJECTID i
-#132 ','
-#132 OBJECTID columns
-#132 ')'
-#132 ')'
-#132 ';'
-#133 OBJECTID out_string
-#133 '('
-#133 STR_CONST "\n"
-#133 ')'
-#133 ';'
-#134 OBJECTID i
-#134 ASSIGN
-#134 OBJECTID i
-#134 '+'
-#134 OBJECTID columns
-#134 ';'
-#135 '}'
-#136 POOL
-#136 ';'
-#137 OBJECTID out_string
-#137 '('
-#137 STR_CONST "\n"
-#137 ')'
-#137 ';'
-#138 OBJECTID self
-#138 ';'
-#139 '}'
-#140 ')'
-#140 ')'
-#141 '}'
-#141 ';'
-#143 OBJECTID num_cells
-#143 '('
-#143 ')'
-#143 ':'
-#143 TYPEID Int
-#143 '{'
-#144 OBJECTID population_map
-#144 '.'
-#144 OBJECTID length
-#144 '('
-#144 ')'
-#145 '}'
-#145 ';'
-#147 OBJECTID cell
-#147 '('
-#147 OBJECTID position
-#147 ':'
-#147 TYPEID Int
-#147 ')'
-#147 ':'
-#147 TYPEID String
-#147 '{'
-#148 IF
-#148 OBJECTID board_size
-#148 '-'
-#148 INT_CONST 1
-#148 '<'
-#148 OBJECTID position
-#148 THEN
-#149 STR_CONST " "
-#150 ELSE
-#151 OBJECTID population_map
-#151 '.'
-#151 OBJECTID substr
-#151 '('
-#151 OBJECTID position
-#151 ','
-#151 INT_CONST 1
-#151 ')'
-#152 FI
-#153 '}'
-#153 ';'
-#155 OBJECTID north
-#155 '('
-#155 OBJECTID position
-#155 ':'
-#155 TYPEID Int
-#155 ')'
-#155 ':'
-#155 TYPEID String
-#155 '{'
-#156 IF
-#156 '('
-#156 OBJECTID position
-#156 '-'
-#156 OBJECTID columns
-#156 ')'
-#156 '<'
-#156 INT_CONST 0
-#156 THEN
-#157 STR_CONST " "
-#158 ELSE
-#159 OBJECTID cell
-#159 '('
-#159 OBJECTID position
-#159 '-'
-#159 OBJECTID columns
-#159 ')'
-#160 FI
-#161 '}'
-#161 ';'
-#163 OBJECTID south
-#163 '('
-#163 OBJECTID position
-#163 ':'
-#163 TYPEID Int
-#163 ')'
-#163 ':'
-#163 TYPEID String
-#163 '{'
-#164 IF
-#164 OBJECTID board_size
-#164 '<'
-#164 '('
-#164 OBJECTID position
-#164 '+'
-#164 OBJECTID columns
-#164 ')'
-#164 THEN
-#165 STR_CONST " "
-#166 ELSE
-#167 OBJECTID cell
-#167 '('
-#167 OBJECTID position
-#167 '+'
-#167 OBJECTID columns
-#167 ')'
-#168 FI
-#169 '}'
-#169 ';'
-#171 OBJECTID east
-#171 '('
-#171 OBJECTID position
-#171 ':'
-#171 TYPEID Int
-#171 ')'
-#171 ':'
-#171 TYPEID String
-#171 '{'
-#172 IF
-#172 '('
-#172 '('
-#172 '('
-#172 OBJECTID position
-#172 '+'
-#172 INT_CONST 1
-#172 ')'
-#172 '/'
-#172 OBJECTID columns
-#172 ')'
-#172 '*'
-#172 OBJECTID columns
-#172 ')'
-#172 '='
-#172 '('
-#172 OBJECTID position
-#172 '+'
-#172 INT_CONST 1
-#172 ')'
-#172 THEN
-#173 STR_CONST " "
-#174 ELSE
-#175 OBJECTID cell
-#175 '('
-#175 OBJECTID position
-#175 '+'
-#175 INT_CONST 1
-#175 ')'
-#176 FI
-#177 '}'
-#177 ';'
-#179 OBJECTID west
-#179 '('
-#179 OBJECTID position
-#179 ':'
-#179 TYPEID Int
-#179 ')'
-#179 ':'
-#179 TYPEID String
-#179 '{'
-#180 IF
-#180 OBJECTID position
-#180 '='
-#180 INT_CONST 0
-#180 THEN
-#181 STR_CONST " "
-#182 ELSE
-#183 IF
-#183 '('
-#183 '('
-#183 OBJECTID position
-#183 '/'
-#183 OBJECTID columns
-#183 ')'
-#183 '*'
-#183 OBJECTID columns
-#183 ')'
-#183 '='
-#183 OBJECTID position
-#183 THEN
-#184 STR_CONST " "
-#185 ELSE
-#186 OBJECTID cell
-#186 '('
-#186 OBJECTID position
-#186 '-'
-#186 INT_CONST 1
-#186 ')'
-#187 FI
-#187 FI
-#188 '}'
-#188 ';'
-#190 OBJECTID northwest
-#190 '('
-#190 OBJECTID position
-#190 ':'
-#190 TYPEID Int
-#190 ')'
-#190 ':'
-#190 TYPEID String
-#190 '{'
-#191 IF
-#191 '('
-#191 OBJECTID position
-#191 '-'
-#191 OBJECTID columns
-#191 ')'
-#191 '<'
-#191 INT_CONST 0
-#191 THEN
-#192 STR_CONST " "
-#193 ELSE
-#193 IF
-#193 '('
-#193 '('
-#193 OBJECTID position
-#193 '/'
-#193 OBJECTID columns
-#193 ')'
-#193 '*'
-#193 OBJECTID columns
-#193 ')'
-#193 '='
-#193 OBJECTID position
-#193 THEN
-#194 STR_CONST " "
-#195 ELSE
-#196 OBJECTID north
-#196 '('
-#196 OBJECTID position
-#196 '-'
-#196 INT_CONST 1
-#196 ')'
-#197 FI
-#197 FI
-#198 '}'
-#198 ';'
-#200 OBJECTID northeast
-#200 '('
-#200 OBJECTID position
-#200 ':'
-#200 TYPEID Int
-#200 ')'
-#200 ':'
-#200 TYPEID String
-#200 '{'
-#201 IF
-#201 '('
-#201 OBJECTID position
-#201 '-'
-#201 OBJECTID columns
-#201 ')'
-#201 '<'
-#201 INT_CONST 0
-#201 THEN
-#202 STR_CONST " "
-#203 ELSE
-#203 IF
-#203 '('
-#203 '('
-#203 '('
-#203 OBJECTID position
-#203 '+'
-#203 INT_CONST 1
-#203 ')'
-#203 '/'
-#203 OBJECTID columns
-#203 ')'
-#203 '*'
-#203 OBJECTID columns
-#203 ')'
-#203 '='
-#203 '('
-#203 OBJECTID position
-#203 '+'
-#203 INT_CONST 1
-#203 ')'
-#203 THEN
-#204 STR_CONST " "
-#205 ELSE
-#206 OBJECTID north
-#206 '('
-#206 OBJECTID position
-#206 '+'
-#206 INT_CONST 1
-#206 ')'
-#207 FI
-#207 FI
-#208 '}'
-#208 ';'
-#210 OBJECTID southeast
-#210 '('
-#210 OBJECTID position
-#210 ':'
-#210 TYPEID Int
-#210 ')'
-#210 ':'
-#210 TYPEID String
-#210 '{'
-#211 IF
-#211 OBJECTID board_size
-#211 '<'
-#211 '('
-#211 OBJECTID position
-#211 '+'
-#211 OBJECTID columns
-#211 ')'
-#211 THEN
-#212 STR_CONST " "
-#213 ELSE
-#213 IF
-#213 '('
-#213 '('
-#213 '('
-#213 OBJECTID position
-#213 '+'
-#213 INT_CONST 1
-#213 ')'
-#213 '/'
-#213 OBJECTID columns
-#213 ')'
-#213 '*'
-#213 OBJECTID columns
-#213 ')'
-#213 '='
-#213 '('
-#213 OBJECTID position
-#213 '+'
-#213 INT_CONST 1
-#213 ')'
-#213 THEN
-#214 STR_CONST " "
-#215 ELSE
-#216 OBJECTID south
-#216 '('
-#216 OBJECTID position
-#216 '+'
-#216 INT_CONST 1
-#216 ')'
-#217 FI
-#217 FI
-#218 '}'
-#218 ';'
-#220 OBJECTID southwest
-#220 '('
-#220 OBJECTID position
-#220 ':'
-#220 TYPEID Int
-#220 ')'
-#220 ':'
-#220 TYPEID String
-#220 '{'
-#221 IF
-#221 OBJECTID board_size
-#221 '<'
-#221 '('
-#221 OBJECTID position
-#221 '+'
-#221 OBJECTID columns
-#221 ')'
-#221 THEN
-#222 STR_CONST " "
-#223 ELSE
-#223 IF
-#223 '('
-#223 '('
-#223 OBJECTID position
-#223 '/'
-#223 OBJECTID columns
-#223 ')'
-#223 '*'
-#223 OBJECTID columns
-#223 ')'
-#223 '='
-#223 OBJECTID position
-#223 THEN
-#224 STR_CONST " "
-#225 ELSE
-#226 OBJECTID south
-#226 '('
-#226 OBJECTID position
-#226 '-'
-#226 INT_CONST 1
-#226 ')'
-#227 FI
-#227 FI
-#228 '}'
-#228 ';'
-#230 OBJECTID neighbors
-#230 '('
-#230 OBJECTID position
-#230 ':'
-#230 TYPEID Int
-#230 ')'
-#230 ':'
-#230 TYPEID Int
-#230 '{'
-#231 '{'
-#232 IF
-#232 OBJECTID north
-#232 '('
-#232 OBJECTID position
-#232 ')'
-#232 '='
-#232 STR_CONST "X"
-#232 THEN
-#232 INT_CONST 1
-#232 ELSE
-#232 INT_CONST 0
-#232 FI
-#233 '+'
-#233 IF
-#233 OBJECTID south
-#233 '('
-#233 OBJECTID position
-#233 ')'
-#233 '='
-#233 STR_CONST "X"
-#233 THEN
-#233 INT_CONST 1
-#233 ELSE
-#233 INT_CONST 0
-#233 FI
-#234 '+'
-#234 IF
-#234 OBJECTID east
-#234 '('
-#234 OBJECTID position
-#234 ')'
-#234 '='
-#234 STR_CONST "X"
-#234 THEN
-#234 INT_CONST 1
-#234 ELSE
-#234 INT_CONST 0
-#234 FI
-#235 '+'
-#235 IF
-#235 OBJECTID west
-#235 '('
-#235 OBJECTID position
-#235 ')'
-#235 '='
-#235 STR_CONST "X"
-#235 THEN
-#235 INT_CONST 1
-#235 ELSE
-#235 INT_CONST 0
-#235 FI
-#236 '+'
-#236 IF
-#236 OBJECTID northeast
-#236 '('
-#236 OBJECTID position
-#236 ')'
-#236 '='
-#236 STR_CONST "X"
-#236 THEN
-#236 INT_CONST 1
-#236 ELSE
-#236 INT_CONST 0
-#236 FI
-#237 '+'
-#237 IF
-#237 OBJECTID northwest
-#237 '('
-#237 OBJECTID position
-#237 ')'
-#237 '='
-#237 STR_CONST "X"
-#237 THEN
-#237 INT_CONST 1
-#237 ELSE
-#237 INT_CONST 0
-#237 FI
-#238 '+'
-#238 IF
-#238 OBJECTID southeast
-#238 '('
-#238 OBJECTID position
-#238 ')'
-#238 '='
-#238 STR_CONST "X"
-#238 THEN
-#238 INT_CONST 1
-#238 ELSE
-#238 INT_CONST 0
-#238 FI
-#239 '+'
-#239 IF
-#239 OBJECTID southwest
-#239 '('
-#239 OBJECTID position
-#239 ')'
-#239 '='
-#239 STR_CONST "X"
-#239 THEN
-#239 INT_CONST 1
-#239 ELSE
-#239 INT_CONST 0
-#239 FI
-#239 ';'
-#240 '}'
-#241 '}'
-#241 ';'
-#247 OBJECTID cell_at_next_evolution
-#247 '('
-#247 OBJECTID position
-#247 ':'
-#247 TYPEID Int
-#247 ')'
-#247 ':'
-#247 TYPEID String
-#247 '{'
-#249 IF
-#249 OBJECTID neighbors
-#249 '('
-#249 OBJECTID position
-#249 ')'
-#249 '='
-#249 INT_CONST 3
-#249 THEN
-#250 STR_CONST "X"
-#251 ELSE
-#252 IF
-#252 OBJECTID neighbors
-#252 '('
-#252 OBJECTID position
-#252 ')'
-#252 '='
-#252 INT_CONST 2
-#252 THEN
-#253 IF
-#253 OBJECTID cell
-#253 '('
-#253 OBJECTID position
-#253 ')'
-#253 '='
-#253 STR_CONST "X"
-#253 THEN
-#254 STR_CONST "X"
-#255 ELSE
-#256 STR_CONST "-"
-#257 FI
-#258 ELSE
-#259 STR_CONST "-"
-#260 FI
-#260 FI
-#261 '}'
-#261 ';'
-#264 OBJECTID evolve
-#264 '('
-#264 ')'
-#264 ':'
-#264 TYPEID SELF_TYPE
-#264 '{'
-#265 '('
-#265 LET
-#265 OBJECTID position
-#265 ':'
-#265 TYPEID Int
-#265 ASSIGN
-#265 INT_CONST 0
-#265 IN
-#266 '('
-#266 LET
-#266 OBJECTID num
-#266 ':'
-#266 TYPEID Int
-#266 ASSIGN
-#266 OBJECTID num_cells
-#266 '('
-#266 ')'
-#266 IN
-#267 '('
-#267 LET
-#267 OBJECTID temp
-#267 ':'
-#267 TYPEID String
-#267 IN
-#268 '{'
-#269 WHILE
-#269 OBJECTID position
-#269 '<'
-#269 OBJECTID num
-#269 LOOP
-#270 '{'
-#271 OBJECTID temp
-#271 ASSIGN
-#271 OBJECTID temp
-#271 '.'
-#271 OBJECTID concat
-#271 '('
-#271 OBJECTID cell_at_next_evolution
-#271 '('
-#271 OBJECTID position
-#271 ')'
-#271 ')'
-#271 ';'
-#272 OBJECTID position
-#272 ASSIGN
-#272 OBJECTID position
-#272 '+'
-#272 INT_CONST 1
-#272 ';'
-#273 '}'
-#274 POOL
-#274 ';'
-#275 OBJECTID population_map
-#275 ASSIGN
-#275 OBJECTID temp
-#275 ';'
-#276 OBJECTID self
-#276 ';'
-#277 '}'
-#278 ')'
-#278 ')'
-#278 ')'
-#279 '}'
-#279 ';'
-#284 OBJECTID option
-#284 '('
-#284 ')'
-#284 ':'
-#284 TYPEID String
-#284 '{'
-#285 '{'
-#286 '('
-#286 LET
-#286 OBJECTID num
-#286 ':'
-#286 TYPEID Int
-#286 IN
-#287 '{'
-#288 OBJECTID out_string
-#288 '('
-#288 STR_CONST "\nPlease chose a number:\n"
-#288 ')'
-#288 ';'
-#289 OBJECTID out_string
-#289 '('
-#289 STR_CONST "\t1: A cross\n"
-#289 ')'
-#289 ';'
-#290 OBJECTID out_string
-#290 '('
-#290 STR_CONST "\t2: A slash from the upper left to lower right\n"
-#290 ')'
-#290 ';'
-#291 OBJECTID out_string
-#291 '('
-#291 STR_CONST "\t3: A slash from the upper right to lower left\n"
-#291 ')'
-#291 ';'
-#292 OBJECTID out_string
-#292 '('
-#292 STR_CONST "\t4: An X\n"
-#292 ')'
-#292 ';'
-#293 OBJECTID out_string
-#293 '('
-#293 STR_CONST "\t5: A greater than sign \n"
-#293 ')'
-#293 ';'
-#294 OBJECTID out_string
-#294 '('
-#294 STR_CONST "\t6: A less than sign\n"
-#294 ')'
-#294 ';'
-#295 OBJECTID out_string
-#295 '('
-#295 STR_CONST "\t7: Two greater than signs\n"
-#295 ')'
-#295 ';'
-#296 OBJECTID out_string
-#296 '('
-#296 STR_CONST "\t8: Two less than signs\n"
-#296 ')'
-#296 ';'
-#297 OBJECTID out_string
-#297 '('
-#297 STR_CONST "\t9: A 'V'\n"
-#297 ')'
-#297 ';'
-#298 OBJECTID out_string
-#298 '('
-#298 STR_CONST "\t10: An inverse 'V'\n"
-#298 ')'
-#298 ';'
-#299 OBJECTID out_string
-#299 '('
-#299 STR_CONST "\t11: Numbers 9 and 10 combined\n"
-#299 ')'
-#299 ';'
-#300 OBJECTID out_string
-#300 '('
-#300 STR_CONST "\t12: A full grid\n"
-#300 ')'
-#300 ';'
-#301 OBJECTID out_string
-#301 '('
-#301 STR_CONST "\t13: A 'T'\n"
-#301 ')'
-#301 ';'
-#302 OBJECTID out_string
-#302 '('
-#302 STR_CONST "\t14: A plus '+'\n"
-#302 ')'
-#302 ';'
-#303 OBJECTID out_string
-#303 '('
-#303 STR_CONST "\t15: A 'W'\n"
-#303 ')'
-#303 ';'
-#304 OBJECTID out_string
-#304 '('
-#304 STR_CONST "\t16: An 'M'\n"
-#304 ')'
-#304 ';'
-#305 OBJECTID out_string
-#305 '('
-#305 STR_CONST "\t17: An 'E'\n"
-#305 ')'
-#305 ';'
-#306 OBJECTID out_string
-#306 '('
-#306 STR_CONST "\t18: A '3'\n"
-#306 ')'
-#306 ';'
-#307 OBJECTID out_string
-#307 '('
-#307 STR_CONST "\t19: An 'O'\n"
-#307 ')'
-#307 ';'
-#308 OBJECTID out_string
-#308 '('
-#308 STR_CONST "\t20: An '8'\n"
-#308 ')'
-#308 ';'
-#309 OBJECTID out_string
-#309 '('
-#309 STR_CONST "\t21: An 'S'\n"
-#309 ')'
-#309 ';'
-#310 OBJECTID out_string
-#310 '('
-#310 STR_CONST "Your choice => "
-#310 ')'
-#310 ';'
-#311 OBJECTID num
-#311 ASSIGN
-#311 OBJECTID in_int
-#311 '('
-#311 ')'
-#311 ';'
-#312 OBJECTID out_string
-#312 '('
-#312 STR_CONST "\n"
-#312 ')'
-#312 ';'
-#313 IF
-#313 OBJECTID num
-#313 '='
-#313 INT_CONST 1
-#313 THEN
-#314 STR_CONST " XX  XXXX XXXX  XX  "
-#315 ELSE
-#315 IF
-#315 OBJECTID num
-#315 '='
-#315 INT_CONST 2
-#315 THEN
-#316 STR_CONST "    X   X   X   X   X    "
-#317 ELSE
-#317 IF
-#317 OBJECTID num
-#317 '='
-#317 INT_CONST 3
-#317 THEN
-#318 STR_CONST "X     X     X     X     X"
-#319 ELSE
-#319 IF
-#319 OBJECTID num
-#319 '='
-#319 INT_CONST 4
-#319 THEN
-#320 STR_CONST "X   X X X   X   X X X   X"
-#321 ELSE
-#321 IF
-#321 OBJECTID num
-#321 '='
-#321 INT_CONST 5
-#321 THEN
-#322 STR_CONST "X     X     X   X   X    "
-#323 ELSE
-#323 IF
-#323 OBJECTID num
-#323 '='
-#323 INT_CONST 6
-#323 THEN
-#324 STR_CONST "    X   X   X     X     X"
-#325 ELSE
-#325 IF
-#325 OBJECTID num
-#325 '='
-#325 INT_CONST 7
-#325 THEN
-#326 STR_CONST "X  X  X  XX  X      "
-#327 ELSE
-#327 IF
-#327 OBJECTID num
-#327 '='
-#327 INT_CONST 8
-#327 THEN
-#328 STR_CONST " X  XX  X  X  X     "
-#329 ELSE
-#329 IF
-#329 OBJECTID num
-#329 '='
-#329 INT_CONST 9
-#329 THEN
-#330 STR_CONST "X   X X X   X  "
-#331 ELSE
-#331 IF
-#331 OBJECTID num
-#331 '='
-#331 INT_CONST 10
-#331 THEN
-#332 STR_CONST "  X   X X X   X"
-#333 ELSE
-#333 IF
-#333 OBJECTID num
-#333 '='
-#333 INT_CONST 11
-#333 THEN
-#334 STR_CONST "X X X X X X X X"
-#335 ELSE
-#335 IF
-#335 OBJECTID num
-#335 '='
-#335 INT_CONST 12
-#335 THEN
-#336 STR_CONST "XXXXXXXXXXXXXXXXXXXXXXXXX"
-#337 ELSE
-#337 IF
-#337 OBJECTID num
-#337 '='
-#337 INT_CONST 13
-#337 THEN
-#338 STR_CONST "XXXXX  X    X    X    X  "
-#339 ELSE
-#339 IF
-#339 OBJECTID num
-#339 '='
-#339 INT_CONST 14
-#339 THEN
-#340 STR_CONST "  X    X  XXXXX  X    X  "
-#341 ELSE
-#341 IF
-#341 OBJECTID num
-#341 '='
-#341 INT_CONST 15
-#341 THEN
-#342 STR_CONST "X     X X X X   X X  "
-#343 ELSE
-#343 IF
-#343 OBJECTID num
-#343 '='
-#343 INT_CONST 16
-#343 THEN
-#344 STR_CONST "  X X   X X X X     X"
-#345 ELSE
-#345 IF
-#345 OBJECTID num
-#345 '='
-#345 INT_CONST 17
-#345 THEN
-#346 STR_CONST "XXXXX   X   XXXXX   X   XXXX"
-#347 ELSE
-#347 IF
-#347 OBJECTID num
-#347 '='
-#347 INT_CONST 18
-#347 THEN
-#348 STR_CONST "XXX    X   X  X    X   XXXX "
-#349 ELSE
-#349 IF
-#349 OBJECTID num
-#349 '='
-#349 INT_CONST 19
-#349 THEN
-#350 STR_CONST " XX X  XX  X XX "
-#351 ELSE
-#351 IF
-#351 OBJECTID num
-#351 '='
-#351 INT_CONST 20
-#351 THEN
-#352 STR_CONST " XX X  XX  X XX X  XX  X XX "
-#353 ELSE
-#353 IF
-#353 OBJECTID num
-#353 '='
-#353 INT_CONST 21
-#353 THEN
-#354 STR_CONST " XXXX   X    XX    X   XXXX "
-#355 ELSE
-#356 STR_CONST "                         "
-#357 FI
-#357 FI
-#357 FI
-#357 FI
-#357 FI
-#357 FI
-#357 FI
-#357 FI
-#357 FI
-#357 FI
-#357 FI
-#357 FI
-#357 FI
-#357 FI
-#357 FI
-#357 FI
-#357 FI
-#357 FI
-#357 FI
-#357 FI
-#357 FI
-#357 ';'
-#358 '}'
-#359 ')'
-#359 ';'
-#360 '}'
-#361 '}'
-#361 ';'
-#366 OBJECTID prompt
-#366 '('
-#366 ')'
-#366 ':'
-#366 TYPEID Bool
-#366 '{'
-#367 '{'
-#368 '('
-#368 LET
-#368 OBJECTID ans
-#368 ':'
-#368 TYPEID String
-#368 IN
-#369 '{'
-#370 OBJECTID out_string
-#370 '('
-#370 STR_CONST "Would you like to continue with the next generation? \n"
-#370 ')'
-#370 ';'
-#371 OBJECTID out_string
-#371 '('
-#371 STR_CONST "Please use lowercase y or n for your answer [y]: "
-#371 ')'
-#371 ';'
-#372 OBJECTID ans
-#372 ASSIGN
-#372 OBJECTID in_string
-#372 '('
-#372 ')'
-#372 ';'
-#373 OBJECTID out_string
-#373 '('
-#373 STR_CONST "\n"
-#373 ')'
-#373 ';'
-#374 IF
-#374 OBJECTID ans
-#374 '='
-#374 STR_CONST "n"
-#374 THEN
-#375 BOOL_CONST false
-#376 ELSE
-#377 BOOL_CONST true
-#378 FI
-#378 ';'
-#379 '}'
-#380 ')'
-#380 ';'
-#381 '}'
-#382 '}'
-#382 ';'
-#385 OBJECTID prompt2
-#385 '('
-#385 ')'
-#385 ':'
-#385 TYPEID Bool
-#385 '{'
-#386 '('
-#386 LET
-#386 OBJECTID ans
-#386 ':'
-#386 TYPEID String
-#386 IN
-#387 '{'
-#388 OBJECTID out_string
-#388 '('
-#388 STR_CONST "\n\n"
-#388 ')'
-#388 ';'
-#389 OBJECTID out_string
-#389 '('
-#389 STR_CONST "Would you like to choose a background pattern? \n"
-#389 ')'
-#389 ';'
-#390 OBJECTID out_string
-#390 '('
-#390 STR_CONST "Please use lowercase y or n for your answer [n]: "
-#390 ')'
-#390 ';'
-#391 OBJECTID ans
-#391 ASSIGN
-#391 OBJECTID in_string
-#391 '('
-#391 ')'
-#391 ';'
-#392 IF
-#392 OBJECTID ans
-#392 '='
-#392 STR_CONST "y"
-#392 THEN
-#393 BOOL_CONST true
-#394 ELSE
-#395 BOOL_CONST false
-#396 FI
-#396 ';'
-#397 '}'
-#398 ')'
-#399 '}'
-#399 ';'
-#402 '}'
-#402 ';'
-#404 CLASS
-#404 TYPEID Main
-#404 INHERITS
-#404 TYPEID CellularAutomaton
-#404 '{'
-#405 OBJECTID cells
-#405 ':'
-#405 TYPEID CellularAutomaton
-#405 ';'
-#407 OBJECTID main
-#407 '('
-#407 ')'
-#407 ':'
-#407 TYPEID SELF_TYPE
-#407 '{'
-#408 '{'
-#409 '('
-#409 LET
-#409 OBJECTID continue
-#409 ':'
-#409 TYPEID Bool
-#409 IN
-#410 '('
-#410 LET
-#410 OBJECTID choice
-#410 ':'
-#410 TYPEID String
-#410 IN
-#411 '{'
-#412 OBJECTID out_string
-#412 '('
-#412 STR_CONST "Welcome to the Game of Life.\n"
-#412 ')'
-#412 ';'
-#413 OBJECTID out_string
-#413 '('
-#413 STR_CONST "There are many initial states to choose from. \n"
-#413 ')'
-#413 ';'
-#414 WHILE
-#414 OBJECTID prompt2
-#414 '('
-#414 ')'
-#414 LOOP
-#415 '{'
-#416 OBJECTID continue
-#416 ASSIGN
-#416 BOOL_CONST true
-#416 ';'
-#417 OBJECTID choice
-#417 ASSIGN
-#417 OBJECTID option
-#417 '('
-#417 ')'
-#417 ';'
-#418 OBJECTID cells
-#418 ASSIGN
-#418 '('
-#418 NEW
-#418 TYPEID CellularAutomaton
-#418 ')'
-#418 '.'
-#418 OBJECTID init
-#418 '('
-#418 OBJECTID choice
-#418 ')'
-#418 ';'
-#419 OBJECTID cells
-#419 '.'
-#419 OBJECTID print
-#419 '('
-#419 ')'
-#419 ';'
-#420 WHILE
-#420 OBJECTID continue
-#420 LOOP
-#421 IF
-#421 OBJECTID prompt
-#421 '('
-#421 ')'
-#421 THEN
-#422 '{'
-#423 OBJECTID cells
-#423 '.'
-#423 OBJECTID evolve
-#423 '('
-#423 ')'
-#423 ';'
-#424 OBJECTID cells
-#424 '.'
-#424 OBJECTID print
-#424 '('
-#424 ')'
-#424 ';'
-#425 '}'
-#426 ELSE
-#427 OBJECTID continue
-#427 ASSIGN
-#427 BOOL_CONST false
-#428 FI
-#429 POOL
-#429 ';'
-#430 '}'
-#431 POOL
-#431 ';'
-#432 OBJECTID self
-#432 ';'
-#433 '}'
-#433 ')'
-#433 ')'
-#433 ';'
-#433 '}'
-#434 '}'
-#434 ';'
-#435 '}'
-#435 ';'
+#435
+_program
+  #106
+  _class
+    Board
+    IO
+    "life.cl"
+    (
+    #47
+    _attr
+      rows
+      Int
+      #47
+      _no_expr
+      : _no_type
+    #48
+    _attr
+      columns
+      Int
+      #48
+      _no_expr
+      : _no_type
+    #49
+    _attr
+      board_size
+      Int
+      #49
+      _no_expr
+      : _no_type
+    #53
+    _method
+      size_of_board
+      #51
+      _formal
+        initial
+        String
+      Int
+      #52
+      _dispatch
+        #52
+        _object
+          initial
+        : _no_type
+        length
+        (
+        )
+      : _no_type
+    #104
+    _method
+      board_init
+      #55
+      _formal
+        start
+        String
+      SELF_TYPE
+      #103
+      _let
+        size
+        Int
+        #56
+        _dispatch
+          #56
+          _object
+            self
+          : _no_type
+          size_of_board
+          (
+          #56
+          _object
+            start
+          : _no_type
+          )
+        : _no_type
+        #102
+        _block
+          #100
+          _cond
+            #58
+            _eq
+              #58
+              _object
+                size
+              : _no_type
+              #58
+              _int
+                15
+              : _no_type
+            : _no_type
+            #63
+            _block
+              #60
+              _assign
+                rows
+                #60
+                _int
+                  3
+                : _no_type
+              : _no_type
+              #61
+              _assign
+                columns
+                #61
+                _int
+                  5
+                : _no_type
+              : _no_type
+              #62
+              _assign
+                board_size
+                #62
+                _object
+                  size
+                : _no_type
+              : _no_type
+            : _no_type
+            #100
+            _cond
+              #64
+              _eq
+                #64
+                _object
+                  size
+                : _no_type
+                #64
+                _int
+                  16
+                : _no_type
+              : _no_type
+              #69
+              _block
+                #66
+                _assign
+                  rows
+                  #66
+                  _int
+                    4
+                  : _no_type
+                : _no_type
+                #67
+                _assign
+                  columns
+                  #67
+                  _int
+                    4
+                  : _no_type
+                : _no_type
+                #68
+                _assign
+                  board_size
+                  #68
+                  _object
+                    size
+                  : _no_type
+                : _no_type
+              : _no_type
+              #100
+              _cond
+                #70
+                _eq
+                  #70
+                  _object
+                    size
+                  : _no_type
+                  #70
+                  _int
+                    20
+                  : _no_type
+                : _no_type
+                #75
+                _block
+                  #72
+                  _assign
+                    rows
+                    #72
+                    _int
+                      4
+                    : _no_type
+                  : _no_type
+                  #73
+                  _assign
+                    columns
+                    #73
+                    _int
+                      5
+                    : _no_type
+                  : _no_type
+                  #74
+                  _assign
+                    board_size
+                    #74
+                    _object
+                      size
+                    : _no_type
+                  : _no_type
+                : _no_type
+                #100
+                _cond
+                  #76
+                  _eq
+                    #76
+                    _object
+                      size
+                    : _no_type
+                    #76
+                    _int
+                      21
+                    : _no_type
+                  : _no_type
+                  #81
+                  _block
+                    #78
+                    _assign
+                      rows
+                      #78
+                      _int
+                        3
+                      : _no_type
+                    : _no_type
+                    #79
+                    _assign
+                      columns
+                      #79
+                      _int
+                        7
+                      : _no_type
+                    : _no_type
+                    #80
+                    _assign
+                      board_size
+                      #80
+                      _object
+                        size
+                      : _no_type
+                    : _no_type
+                  : _no_type
+                  #100
+                  _cond
+                    #82
+                    _eq
+                      #82
+                      _object
+                        size
+                      : _no_type
+                      #82
+                      _int
+                        25
+                      : _no_type
+                    : _no_type
+                    #87
+                    _block
+                      #84
+                      _assign
+                        rows
+                        #84
+                        _int
+                          5
+                        : _no_type
+                      : _no_type
+                      #85
+                      _assign
+                        columns
+                        #85
+                        _int
+                          5
+                        : _no_type
+                      : _no_type
+                      #86
+                      _assign
+                        board_size
+                        #86
+                        _object
+                          size
+                        : _no_type
+                      : _no_type
+                    : _no_type
+                    #100
+                    _cond
+                      #88
+                      _eq
+                        #88
+                        _object
+                          size
+                        : _no_type
+                        #88
+                        _int
+                          28
+                        : _no_type
+                      : _no_type
+                      #93
+                      _block
+                        #90
+                        _assign
+                          rows
+                          #90
+                          _int
+                            7
+                          : _no_type
+                        : _no_type
+                        #91
+                        _assign
+                          columns
+                          #91
+                          _int
+                            4
+                          : _no_type
+                        : _no_type
+                        #92
+                        _assign
+                          board_size
+                          #92
+                          _object
+                            size
+                          : _no_type
+                        : _no_type
+                      : _no_type
+                      #99
+                      _block
+                        #96
+                        _assign
+                          rows
+                          #96
+                          _int
+                            5
+                          : _no_type
+                        : _no_type
+                        #97
+                        _assign
+                          columns
+                          #97
+                          _int
+                            5
+                          : _no_type
+                        : _no_type
+                        #98
+                        _assign
+                          board_size
+                          #98
+                          _object
+                            size
+                          : _no_type
+                        : _no_type
+                      : _no_type
+                    : _no_type
+                  : _no_type
+                : _no_type
+              : _no_type
+            : _no_type
+          : _no_type
+          #101
+          _object
+            self
+          : _no_type
+        : _no_type
+      : _no_type
+    )
+  #402
+  _class
+    CellularAutomaton
+    Board
+    "life.cl"
+    (
+    #111
+    _attr
+      population_map
+      String
+      #111
+      _no_expr
+      : _no_type
+    #119
+    _method
+      init
+      #113
+      _formal
+        map
+        String
+      SELF_TYPE
+      #118
+      _block
+        #115
+        _assign
+          population_map
+          #115
+          _object
+            map
+          : _no_type
+        : _no_type
+        #116
+        _dispatch
+          #116
+          _object
+            self
+          : _no_type
+          board_init
+          (
+          #116
+          _object
+            map
+          : _no_type
+          )
+        : _no_type
+        #117
+        _object
+          self
+        : _no_type
+      : _no_type
+    #141
+    _method
+      print
+      SELF_TYPE
+      #140
+      _let
+        i
+        Int
+        #126
+        _int
+          0
+        : _no_type
+        #140
+        _let
+          num
+          Int
+          #127
+          _object
+            board_size
+          : _no_type
+          #139
+          _block
+            #129
+            _dispatch
+              #129
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #129
+              _string
+                "\n"
+              : _no_type
+              )
+            : _no_type
+            #136
+            _loop
+              #130
+              _lt
+                #130
+                _object
+                  i
+                : _no_type
+                #130
+                _object
+                  num
+                : _no_type
+              : _no_type
+              #135
+              _block
+                #132
+                _dispatch
+                  #132
+                  _object
+                    self
+                  : _no_type
+                  out_string
+                  (
+                  #132
+                  _dispatch
+                    #132
+                    _object
+                      population_map
+                    : _no_type
+                    substr
+                    (
+                    #132
+                    _object
+                      i
+                    : _no_type
+                    #132
+                    _object
+                      columns
+                    : _no_type
+                    )
+                  : _no_type
+                  )
+                : _no_type
+                #133
+                _dispatch
+                  #133
+                  _object
+                    self
+                  : _no_type
+                  out_string
+                  (
+                  #133
+                  _string
+                    "\n"
+                  : _no_type
+                  )
+                : _no_type
+                #134
+                _assign
+                  i
+                  #134
+                  _plus
+                    #134
+                    _object
+                      i
+                    : _no_type
+                    #134
+                    _object
+                      columns
+                    : _no_type
+                  : _no_type
+                : _no_type
+              : _no_type
+            : _no_type
+            #137
+            _dispatch
+              #137
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #137
+              _string
+                "\n"
+              : _no_type
+              )
+            : _no_type
+            #138
+            _object
+              self
+            : _no_type
+          : _no_type
+        : _no_type
+      : _no_type
+    #145
+    _method
+      num_cells
+      Int
+      #144
+      _dispatch
+        #144
+        _object
+          population_map
+        : _no_type
+        length
+        (
+        )
+      : _no_type
+    #153
+    _method
+      cell
+      #147
+      _formal
+        position
+        Int
+      String
+      #152
+      _cond
+        #148
+        _lt
+          #148
+          _sub
+            #148
+            _object
+              board_size
+            : _no_type
+            #148
+            _int
+              1
+            : _no_type
+          : _no_type
+          #148
+          _object
+            position
+          : _no_type
+        : _no_type
+        #149
+        _string
+          " "
+        : _no_type
+        #151
+        _dispatch
+          #151
+          _object
+            population_map
+          : _no_type
+          substr
+          (
+          #151
+          _object
+            position
+          : _no_type
+          #151
+          _int
+            1
+          : _no_type
+          )
+        : _no_type
+      : _no_type
+    #161
+    _method
+      north
+      #155
+      _formal
+        position
+        Int
+      String
+      #160
+      _cond
+        #156
+        _lt
+          #156
+          _sub
+            #156
+            _object
+              position
+            : _no_type
+            #156
+            _object
+              columns
+            : _no_type
+          : _no_type
+          #156
+          _int
+            0
+          : _no_type
+        : _no_type
+        #157
+        _string
+          " "
+        : _no_type
+        #159
+        _dispatch
+          #159
+          _object
+            self
+          : _no_type
+          cell
+          (
+          #159
+          _sub
+            #159
+            _object
+              position
+            : _no_type
+            #159
+            _object
+              columns
+            : _no_type
+          : _no_type
+          )
+        : _no_type
+      : _no_type
+    #169
+    _method
+      south
+      #163
+      _formal
+        position
+        Int
+      String
+      #168
+      _cond
+        #164
+        _lt
+          #164
+          _object
+            board_size
+          : _no_type
+          #164
+          _plus
+            #164
+            _object
+              position
+            : _no_type
+            #164
+            _object
+              columns
+            : _no_type
+          : _no_type
+        : _no_type
+        #165
+        _string
+          " "
+        : _no_type
+        #167
+        _dispatch
+          #167
+          _object
+            self
+          : _no_type
+          cell
+          (
+          #167
+          _plus
+            #167
+            _object
+              position
+            : _no_type
+            #167
+            _object
+              columns
+            : _no_type
+          : _no_type
+          )
+        : _no_type
+      : _no_type
+    #177
+    _method
+      east
+      #171
+      _formal
+        position
+        Int
+      String
+      #176
+      _cond
+        #172
+        _eq
+          #172
+          _mul
+            #172
+            _divide
+              #172
+              _plus
+                #172
+                _object
+                  position
+                : _no_type
+                #172
+                _int
+                  1
+                : _no_type
+              : _no_type
+              #172
+              _object
+                columns
+              : _no_type
+            : _no_type
+            #172
+            _object
+              columns
+            : _no_type
+          : _no_type
+          #172
+          _plus
+            #172
+            _object
+              position
+            : _no_type
+            #172
+            _int
+              1
+            : _no_type
+          : _no_type
+        : _no_type
+        #173
+        _string
+          " "
+        : _no_type
+        #175
+        _dispatch
+          #175
+          _object
+            self
+          : _no_type
+          cell
+          (
+          #175
+          _plus
+            #175
+            _object
+              position
+            : _no_type
+            #175
+            _int
+              1
+            : _no_type
+          : _no_type
+          )
+        : _no_type
+      : _no_type
+    #188
+    _method
+      west
+      #179
+      _formal
+        position
+        Int
+      String
+      #187
+      _cond
+        #180
+        _eq
+          #180
+          _object
+            position
+          : _no_type
+          #180
+          _int
+            0
+          : _no_type
+        : _no_type
+        #181
+        _string
+          " "
+        : _no_type
+        #187
+        _cond
+          #183
+          _eq
+            #183
+            _mul
+              #183
+              _divide
+                #183
+                _object
+                  position
+                : _no_type
+                #183
+                _object
+                  columns
+                : _no_type
+              : _no_type
+              #183
+              _object
+                columns
+              : _no_type
+            : _no_type
+            #183
+            _object
+              position
+            : _no_type
+          : _no_type
+          #184
+          _string
+            " "
+          : _no_type
+          #186
+          _dispatch
+            #186
+            _object
+              self
+            : _no_type
+            cell
+            (
+            #186
+            _sub
+              #186
+              _object
+                position
+              : _no_type
+              #186
+              _int
+                1
+              : _no_type
+            : _no_type
+            )
+          : _no_type
+        : _no_type
+      : _no_type
+    #198
+    _method
+      northwest
+      #190
+      _formal
+        position
+        Int
+      String
+      #197
+      _cond
+        #191
+        _lt
+          #191
+          _sub
+            #191
+            _object
+              position
+            : _no_type
+            #191
+            _object
+              columns
+            : _no_type
+          : _no_type
+          #191
+          _int
+            0
+          : _no_type
+        : _no_type
+        #192
+        _string
+          " "
+        : _no_type
+        #197
+        _cond
+          #193
+          _eq
+            #193
+            _mul
+              #193
+              _divide
+                #193
+                _object
+                  position
+                : _no_type
+                #193
+                _object
+                  columns
+                : _no_type
+              : _no_type
+              #193
+              _object
+                columns
+              : _no_type
+            : _no_type
+            #193
+            _object
+              position
+            : _no_type
+          : _no_type
+          #194
+          _string
+            " "
+          : _no_type
+          #196
+          _dispatch
+            #196
+            _object
+              self
+            : _no_type
+            north
+            (
+            #196
+            _sub
+              #196
+              _object
+                position
+              : _no_type
+              #196
+              _int
+                1
+              : _no_type
+            : _no_type
+            )
+          : _no_type
+        : _no_type
+      : _no_type
+    #208
+    _method
+      northeast
+      #200
+      _formal
+        position
+        Int
+      String
+      #207
+      _cond
+        #201
+        _lt
+          #201
+          _sub
+            #201
+            _object
+              position
+            : _no_type
+            #201
+            _object
+              columns
+            : _no_type
+          : _no_type
+          #201
+          _int
+            0
+          : _no_type
+        : _no_type
+        #202
+        _string
+          " "
+        : _no_type
+        #207
+        _cond
+          #203
+          _eq
+            #203
+            _mul
+              #203
+              _divide
+                #203
+                _plus
+                  #203
+                  _object
+                    position
+                  : _no_type
+                  #203
+                  _int
+                    1
+                  : _no_type
+                : _no_type
+                #203
+                _object
+                  columns
+                : _no_type
+              : _no_type
+              #203
+              _object
+                columns
+              : _no_type
+            : _no_type
+            #203
+            _plus
+              #203
+              _object
+                position
+              : _no_type
+              #203
+              _int
+                1
+              : _no_type
+            : _no_type
+          : _no_type
+          #204
+          _string
+            " "
+          : _no_type
+          #206
+          _dispatch
+            #206
+            _object
+              self
+            : _no_type
+            north
+            (
+            #206
+            _plus
+              #206
+              _object
+                position
+              : _no_type
+              #206
+              _int
+                1
+              : _no_type
+            : _no_type
+            )
+          : _no_type
+        : _no_type
+      : _no_type
+    #218
+    _method
+      southeast
+      #210
+      _formal
+        position
+        Int
+      String
+      #217
+      _cond
+        #211
+        _lt
+          #211
+          _object
+            board_size
+          : _no_type
+          #211
+          _plus
+            #211
+            _object
+              position
+            : _no_type
+            #211
+            _object
+              columns
+            : _no_type
+          : _no_type
+        : _no_type
+        #212
+        _string
+          " "
+        : _no_type
+        #217
+        _cond
+          #213
+          _eq
+            #213
+            _mul
+              #213
+              _divide
+                #213
+                _plus
+                  #213
+                  _object
+                    position
+                  : _no_type
+                  #213
+                  _int
+                    1
+                  : _no_type
+                : _no_type
+                #213
+                _object
+                  columns
+                : _no_type
+              : _no_type
+              #213
+              _object
+                columns
+              : _no_type
+            : _no_type
+            #213
+            _plus
+              #213
+              _object
+                position
+              : _no_type
+              #213
+              _int
+                1
+              : _no_type
+            : _no_type
+          : _no_type
+          #214
+          _string
+            " "
+          : _no_type
+          #216
+          _dispatch
+            #216
+            _object
+              self
+            : _no_type
+            south
+            (
+            #216
+            _plus
+              #216
+              _object
+                position
+              : _no_type
+              #216
+              _int
+                1
+              : _no_type
+            : _no_type
+            )
+          : _no_type
+        : _no_type
+      : _no_type
+    #228
+    _method
+      southwest
+      #220
+      _formal
+        position
+        Int
+      String
+      #227
+      _cond
+        #221
+        _lt
+          #221
+          _object
+            board_size
+          : _no_type
+          #221
+          _plus
+            #221
+            _object
+              position
+            : _no_type
+            #221
+            _object
+              columns
+            : _no_type
+          : _no_type
+        : _no_type
+        #222
+        _string
+          " "
+        : _no_type
+        #227
+        _cond
+          #223
+          _eq
+            #223
+            _mul
+              #223
+              _divide
+                #223
+                _object
+                  position
+                : _no_type
+                #223
+                _object
+                  columns
+                : _no_type
+              : _no_type
+              #223
+              _object
+                columns
+              : _no_type
+            : _no_type
+            #223
+            _object
+              position
+            : _no_type
+          : _no_type
+          #224
+          _string
+            " "
+          : _no_type
+          #226
+          _dispatch
+            #226
+            _object
+              self
+            : _no_type
+            south
+            (
+            #226
+            _sub
+              #226
+              _object
+                position
+              : _no_type
+              #226
+              _int
+                1
+              : _no_type
+            : _no_type
+            )
+          : _no_type
+        : _no_type
+      : _no_type
+    #241
+    _method
+      neighbors
+      #230
+      _formal
+        position
+        Int
+      Int
+      #240
+      _block
+        #239
+        _plus
+          #239
+          _plus
+            #238
+            _plus
+              #237
+              _plus
+                #236
+                _plus
+                  #235
+                  _plus
+                    #234
+                    _plus
+                      #232
+                      _cond
+                        #232
+                        _eq
+                          #232
+                          _dispatch
+                            #232
+                            _object
+                              self
+                            : _no_type
+                            north
+                            (
+                            #232
+                            _object
+                              position
+                            : _no_type
+                            )
+                          : _no_type
+                          #232
+                          _string
+                            "X"
+                          : _no_type
+                        : _no_type
+                        #232
+                        _int
+                          1
+                        : _no_type
+                        #232
+                        _int
+                          0
+                        : _no_type
+                      : _no_type
+                      #233
+                      _cond
+                        #233
+                        _eq
+                          #233
+                          _dispatch
+                            #233
+                            _object
+                              self
+                            : _no_type
+                            south
+                            (
+                            #233
+                            _object
+                              position
+                            : _no_type
+                            )
+                          : _no_type
+                          #233
+                          _string
+                            "X"
+                          : _no_type
+                        : _no_type
+                        #233
+                        _int
+                          1
+                        : _no_type
+                        #233
+                        _int
+                          0
+                        : _no_type
+                      : _no_type
+                    : _no_type
+                    #234
+                    _cond
+                      #234
+                      _eq
+                        #234
+                        _dispatch
+                          #234
+                          _object
+                            self
+                          : _no_type
+                          east
+                          (
+                          #234
+                          _object
+                            position
+                          : _no_type
+                          )
+                        : _no_type
+                        #234
+                        _string
+                          "X"
+                        : _no_type
+                      : _no_type
+                      #234
+                      _int
+                        1
+                      : _no_type
+                      #234
+                      _int
+                        0
+                      : _no_type
+                    : _no_type
+                  : _no_type
+                  #235
+                  _cond
+                    #235
+                    _eq
+                      #235
+                      _dispatch
+                        #235
+                        _object
+                          self
+                        : _no_type
+                        west
+                        (
+                        #235
+                        _object
+                          position
+                        : _no_type
+                        )
+                      : _no_type
+                      #235
+                      _string
+                        "X"
+                      : _no_type
+                    : _no_type
+                    #235
+                    _int
+                      1
+                    : _no_type
+                    #235
+                    _int
+                      0
+                    : _no_type
+                  : _no_type
+                : _no_type
+                #236
+                _cond
+                  #236
+                  _eq
+                    #236
+                    _dispatch
+                      #236
+                      _object
+                        self
+                      : _no_type
+                      northeast
+                      (
+                      #236
+                      _object
+                        position
+                      : _no_type
+                      )
+                    : _no_type
+                    #236
+                    _string
+                      "X"
+                    : _no_type
+                  : _no_type
+                  #236
+                  _int
+                    1
+                  : _no_type
+                  #236
+                  _int
+                    0
+                  : _no_type
+                : _no_type
+              : _no_type
+              #237
+              _cond
+                #237
+                _eq
+                  #237
+                  _dispatch
+                    #237
+                    _object
+                      self
+                    : _no_type
+                    northwest
+                    (
+                    #237
+                    _object
+                      position
+                    : _no_type
+                    )
+                  : _no_type
+                  #237
+                  _string
+                    "X"
+                  : _no_type
+                : _no_type
+                #237
+                _int
+                  1
+                : _no_type
+                #237
+                _int
+                  0
+                : _no_type
+              : _no_type
+            : _no_type
+            #238
+            _cond
+              #238
+              _eq
+                #238
+                _dispatch
+                  #238
+                  _object
+                    self
+                  : _no_type
+                  southeast
+                  (
+                  #238
+                  _object
+                    position
+                  : _no_type
+                  )
+                : _no_type
+                #238
+                _string
+                  "X"
+                : _no_type
+              : _no_type
+              #238
+              _int
+                1
+              : _no_type
+              #238
+              _int
+                0
+              : _no_type
+            : _no_type
+          : _no_type
+          #239
+          _cond
+            #239
+            _eq
+              #239
+              _dispatch
+                #239
+                _object
+                  self
+                : _no_type
+                southwest
+                (
+                #239
+                _object
+                  position
+                : _no_type
+                )
+              : _no_type
+              #239
+              _string
+                "X"
+              : _no_type
+            : _no_type
+            #239
+            _int
+              1
+            : _no_type
+            #239
+            _int
+              0
+            : _no_type
+          : _no_type
+        : _no_type
+      : _no_type
+    #261
+    _method
+      cell_at_next_evolution
+      #247
+      _formal
+        position
+        Int
+      String
+      #260
+      _cond
+        #249
+        _eq
+          #249
+          _dispatch
+            #249
+            _object
+              self
+            : _no_type
+            neighbors
+            (
+            #249
+            _object
+              position
+            : _no_type
+            )
+          : _no_type
+          #249
+          _int
+            3
+          : _no_type
+        : _no_type
+        #250
+        _string
+          "X"
+        : _no_type
+        #260
+        _cond
+          #252
+          _eq
+            #252
+            _dispatch
+              #252
+              _object
+                self
+              : _no_type
+              neighbors
+              (
+              #252
+              _object
+                position
+              : _no_type
+              )
+            : _no_type
+            #252
+            _int
+              2
+            : _no_type
+          : _no_type
+          #257
+          _cond
+            #253
+            _eq
+              #253
+              _dispatch
+                #253
+                _object
+                  self
+                : _no_type
+                cell
+                (
+                #253
+                _object
+                  position
+                : _no_type
+                )
+              : _no_type
+              #253
+              _string
+                "X"
+              : _no_type
+            : _no_type
+            #254
+            _string
+              "X"
+            : _no_type
+            #256
+            _string
+              "-"
+            : _no_type
+          : _no_type
+          #259
+          _string
+            "-"
+          : _no_type
+        : _no_type
+      : _no_type
+    #279
+    _method
+      evolve
+      SELF_TYPE
+      #278
+      _let
+        position
+        Int
+        #265
+        _int
+          0
+        : _no_type
+        #278
+        _let
+          num
+          Int
+          #266
+          _dispatch
+            #266
+            _object
+              self
+            : _no_type
+            num_cells
+            (
+            )
+          : _no_type
+          #278
+          _let
+            temp
+            String
+            #267
+            _no_expr
+            : _no_type
+            #277
+            _block
+              #274
+              _loop
+                #269
+                _lt
+                  #269
+                  _object
+                    position
+                  : _no_type
+                  #269
+                  _object
+                    num
+                  : _no_type
+                : _no_type
+                #273
+                _block
+                  #271
+                  _assign
+                    temp
+                    #271
+                    _dispatch
+                      #271
+                      _object
+                        temp
+                      : _no_type
+                      concat
+                      (
+                      #271
+                      _dispatch
+                        #271
+                        _object
+                          self
+                        : _no_type
+                        cell_at_next_evolution
+                        (
+                        #271
+                        _object
+                          position
+                        : _no_type
+                        )
+                      : _no_type
+                      )
+                    : _no_type
+                  : _no_type
+                  #272
+                  _assign
+                    position
+                    #272
+                    _plus
+                      #272
+                      _object
+                        position
+                      : _no_type
+                      #272
+                      _int
+                        1
+                      : _no_type
+                    : _no_type
+                  : _no_type
+                : _no_type
+              : _no_type
+              #275
+              _assign
+                population_map
+                #275
+                _object
+                  temp
+                : _no_type
+              : _no_type
+              #276
+              _object
+                self
+              : _no_type
+            : _no_type
+          : _no_type
+        : _no_type
+      : _no_type
+    #361
+    _method
+      option
+      String
+      #360
+      _block
+        #359
+        _let
+          num
+          Int
+          #286
+          _no_expr
+          : _no_type
+          #358
+          _block
+            #288
+            _dispatch
+              #288
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #288
+              _string
+                "\nPlease chose a number:\n"
+              : _no_type
+              )
+            : _no_type
+            #289
+            _dispatch
+              #289
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #289
+              _string
+                "\t1: A cross\n"
+              : _no_type
+              )
+            : _no_type
+            #290
+            _dispatch
+              #290
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #290
+              _string
+                "\t2: A slash from the upper left to lower right\n"
+              : _no_type
+              )
+            : _no_type
+            #291
+            _dispatch
+              #291
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #291
+              _string
+                "\t3: A slash from the upper right to lower left\n"
+              : _no_type
+              )
+            : _no_type
+            #292
+            _dispatch
+              #292
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #292
+              _string
+                "\t4: An X\n"
+              : _no_type
+              )
+            : _no_type
+            #293
+            _dispatch
+              #293
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #293
+              _string
+                "\t5: A greater than sign \n"
+              : _no_type
+              )
+            : _no_type
+            #294
+            _dispatch
+              #294
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #294
+              _string
+                "\t6: A less than sign\n"
+              : _no_type
+              )
+            : _no_type
+            #295
+            _dispatch
+              #295
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #295
+              _string
+                "\t7: Two greater than signs\n"
+              : _no_type
+              )
+            : _no_type
+            #296
+            _dispatch
+              #296
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #296
+              _string
+                "\t8: Two less than signs\n"
+              : _no_type
+              )
+            : _no_type
+            #297
+            _dispatch
+              #297
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #297
+              _string
+                "\t9: A 'V'\n"
+              : _no_type
+              )
+            : _no_type
+            #298
+            _dispatch
+              #298
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #298
+              _string
+                "\t10: An inverse 'V'\n"
+              : _no_type
+              )
+            : _no_type
+            #299
+            _dispatch
+              #299
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #299
+              _string
+                "\t11: Numbers 9 and 10 combined\n"
+              : _no_type
+              )
+            : _no_type
+            #300
+            _dispatch
+              #300
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #300
+              _string
+                "\t12: A full grid\n"
+              : _no_type
+              )
+            : _no_type
+            #301
+            _dispatch
+              #301
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #301
+              _string
+                "\t13: A 'T'\n"
+              : _no_type
+              )
+            : _no_type
+            #302
+            _dispatch
+              #302
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #302
+              _string
+                "\t14: A plus '+'\n"
+              : _no_type
+              )
+            : _no_type
+            #303
+            _dispatch
+              #303
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #303
+              _string
+                "\t15: A 'W'\n"
+              : _no_type
+              )
+            : _no_type
+            #304
+            _dispatch
+              #304
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #304
+              _string
+                "\t16: An 'M'\n"
+              : _no_type
+              )
+            : _no_type
+            #305
+            _dispatch
+              #305
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #305
+              _string
+                "\t17: An 'E'\n"
+              : _no_type
+              )
+            : _no_type
+            #306
+            _dispatch
+              #306
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #306
+              _string
+                "\t18: A '3'\n"
+              : _no_type
+              )
+            : _no_type
+            #307
+            _dispatch
+              #307
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #307
+              _string
+                "\t19: An 'O'\n"
+              : _no_type
+              )
+            : _no_type
+            #308
+            _dispatch
+              #308
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #308
+              _string
+                "\t20: An '8'\n"
+              : _no_type
+              )
+            : _no_type
+            #309
+            _dispatch
+              #309
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #309
+              _string
+                "\t21: An 'S'\n"
+              : _no_type
+              )
+            : _no_type
+            #310
+            _dispatch
+              #310
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #310
+              _string
+                "Your choice => "
+              : _no_type
+              )
+            : _no_type
+            #311
+            _assign
+              num
+              #311
+              _dispatch
+                #311
+                _object
+                  self
+                : _no_type
+                in_int
+                (
+                )
+              : _no_type
+            : _no_type
+            #312
+            _dispatch
+              #312
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #312
+              _string
+                "\n"
+              : _no_type
+              )
+            : _no_type
+            #357
+            _cond
+              #313
+              _eq
+                #313
+                _object
+                  num
+                : _no_type
+                #313
+                _int
+                  1
+                : _no_type
+              : _no_type
+              #314
+              _string
+                " XX  XXXX XXXX  XX  "
+              : _no_type
+              #357
+              _cond
+                #315
+                _eq
+                  #315
+                  _object
+                    num
+                  : _no_type
+                  #315
+                  _int
+                    2
+                  : _no_type
+                : _no_type
+                #316
+                _string
+                  "    X   X   X   X   X    "
+                : _no_type
+                #357
+                _cond
+                  #317
+                  _eq
+                    #317
+                    _object
+                      num
+                    : _no_type
+                    #317
+                    _int
+                      3
+                    : _no_type
+                  : _no_type
+                  #318
+                  _string
+                    "X     X     X     X     X"
+                  : _no_type
+                  #357
+                  _cond
+                    #319
+                    _eq
+                      #319
+                      _object
+                        num
+                      : _no_type
+                      #319
+                      _int
+                        4
+                      : _no_type
+                    : _no_type
+                    #320
+                    _string
+                      "X   X X X   X   X X X   X"
+                    : _no_type
+                    #357
+                    _cond
+                      #321
+                      _eq
+                        #321
+                        _object
+                          num
+                        : _no_type
+                        #321
+                        _int
+                          5
+                        : _no_type
+                      : _no_type
+                      #322
+                      _string
+                        "X     X     X   X   X    "
+                      : _no_type
+                      #357
+                      _cond
+                        #323
+                        _eq
+                          #323
+                          _object
+                            num
+                          : _no_type
+                          #323
+                          _int
+                            6
+                          : _no_type
+                        : _no_type
+                        #324
+                        _string
+                          "    X   X   X     X     X"
+                        : _no_type
+                        #357
+                        _cond
+                          #325
+                          _eq
+                            #325
+                            _object
+                              num
+                            : _no_type
+                            #325
+                            _int
+                              7
+                            : _no_type
+                          : _no_type
+                          #326
+                          _string
+                            "X  X  X  XX  X      "
+                          : _no_type
+                          #357
+                          _cond
+                            #327
+                            _eq
+                              #327
+                              _object
+                                num
+                              : _no_type
+                              #327
+                              _int
+                                8
+                              : _no_type
+                            : _no_type
+                            #328
+                            _string
+                              " X  XX  X  X  X     "
+                            : _no_type
+                            #357
+                            _cond
+                              #329
+                              _eq
+                                #329
+                                _object
+                                  num
+                                : _no_type
+                                #329
+                                _int
+                                  9
+                                : _no_type
+                              : _no_type
+                              #330
+                              _string
+                                "X   X X X   X  "
+                              : _no_type
+                              #357
+                              _cond
+                                #331
+                                _eq
+                                  #331
+                                  _object
+                                    num
+                                  : _no_type
+                                  #331
+                                  _int
+                                    10
+                                  : _no_type
+                                : _no_type
+                                #332
+                                _string
+                                  "  X   X X X   X"
+                                : _no_type
+                                #357
+                                _cond
+                                  #333
+                                  _eq
+                                    #333
+                                    _object
+                                      num
+                                    : _no_type
+                                    #333
+                                    _int
+                                      11
+                                    : _no_type
+                                  : _no_type
+                                  #334
+                                  _string
+                                    "X X X X X X X X"
+                                  : _no_type
+                                  #357
+                                  _cond
+                                    #335
+                                    _eq
+                                      #335
+                                      _object
+                                        num
+                                      : _no_type
+                                      #335
+                                      _int
+                                        12
+                                      : _no_type
+                                    : _no_type
+                                    #336
+                                    _string
+                                      "XXXXXXXXXXXXXXXXXXXXXXXXX"
+                                    : _no_type
+                                    #357
+                                    _cond
+                                      #337
+                                      _eq
+                                        #337
+                                        _object
+                                          num
+                                        : _no_type
+                                        #337
+                                        _int
+                                          13
+                                        : _no_type
+                                      : _no_type
+                                      #338
+                                      _string
+                                        "XXXXX  X    X    X    X  "
+                                      : _no_type
+                                      #357
+                                      _cond
+                                        #339
+                                        _eq
+                                          #339
+                                          _object
+                                            num
+                                          : _no_type
+                                          #339
+                                          _int
+                                            14
+                                          : _no_type
+                                        : _no_type
+                                        #340
+                                        _string
+                                          "  X    X  XXXXX  X    X  "
+                                        : _no_type
+                                        #357
+                                        _cond
+                                          #341
+                                          _eq
+                                            #341
+                                            _object
+                                              num
+                                            : _no_type
+                                            #341
+                                            _int
+                                              15
+                                            : _no_type
+                                          : _no_type
+                                          #342
+                                          _string
+                                            "X     X X X X   X X  "
+                                          : _no_type
+                                          #357
+                                          _cond
+                                            #343
+                                            _eq
+                                              #343
+                                              _object
+                                                num
+                                              : _no_type
+                                              #343
+                                              _int
+                                                16
+                                              : _no_type
+                                            : _no_type
+                                            #344
+                                            _string
+                                              "  X X   X X X X     X"
+                                            : _no_type
+                                            #357
+                                            _cond
+                                              #345
+                                              _eq
+                                                #345
+                                                _object
+                                                  num
+                                                : _no_type
+                                                #345
+                                                _int
+                                                  17
+                                                : _no_type
+                                              : _no_type
+                                              #346
+                                              _string
+                                                "XXXXX   X   XXXXX   X   XXXX"
+                                              : _no_type
+                                              #357
+                                              _cond
+                                                #347
+                                                _eq
+                                                  #347
+                                                  _object
+                                                    num
+                                                  : _no_type
+                                                  #347
+                                                  _int
+                                                    18
+                                                  : _no_type
+                                                : _no_type
+                                                #348
+                                                _string
+                                                  "XXX    X   X  X    X   XXXX "
+                                                : _no_type
+                                                #357
+                                                _cond
+                                                  #349
+                                                  _eq
+                                                    #349
+                                                    _object
+                                                      num
+                                                    : _no_type
+                                                    #349
+                                                    _int
+                                                      19
+                                                    : _no_type
+                                                  : _no_type
+                                                  #350
+                                                  _string
+                                                    " XX X  XX  X XX "
+                                                  : _no_type
+                                                  #357
+                                                  _cond
+                                                    #351
+                                                    _eq
+                                                      #351
+                                                      _object
+                                                        num
+                                                      : _no_type
+                                                      #351
+                                                      _int
+                                                        20
+                                                      : _no_type
+                                                    : _no_type
+                                                    #352
+                                                    _string
+                                                      " XX X  XX  X XX X  XX  X XX "
+                                                    : _no_type
+                                                    #357
+                                                    _cond
+                                                      #353
+                                                      _eq
+                                                        #353
+                                                        _object
+                                                          num
+                                                        : _no_type
+                                                        #353
+                                                        _int
+                                                          21
+                                                        : _no_type
+                                                      : _no_type
+                                                      #354
+                                                      _string
+                                                        " XXXX   X    XX    X   XXXX "
+                                                      : _no_type
+                                                      #356
+                                                      _string
+                                                        "                         "
+                                                      : _no_type
+                                                    : _no_type
+                                                  : _no_type
+                                                : _no_type
+                                              : _no_type
+                                            : _no_type
+                                          : _no_type
+                                        : _no_type
+                                      : _no_type
+                                    : _no_type
+                                  : _no_type
+                                : _no_type
+                              : _no_type
+                            : _no_type
+                          : _no_type
+                        : _no_type
+                      : _no_type
+                    : _no_type
+                  : _no_type
+                : _no_type
+              : _no_type
+            : _no_type
+          : _no_type
+        : _no_type
+      : _no_type
+    #382
+    _method
+      prompt
+      Bool
+      #381
+      _block
+        #380
+        _let
+          ans
+          String
+          #368
+          _no_expr
+          : _no_type
+          #379
+          _block
+            #370
+            _dispatch
+              #370
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #370
+              _string
+                "Would you like to continue with the next generation? \n"
+              : _no_type
+              )
+            : _no_type
+            #371
+            _dispatch
+              #371
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #371
+              _string
+                "Please use lowercase y or n for your answer [y]: "
+              : _no_type
+              )
+            : _no_type
+            #372
+            _assign
+              ans
+              #372
+              _dispatch
+                #372
+                _object
+                  self
+                : _no_type
+                in_string
+                (
+                )
+              : _no_type
+            : _no_type
+            #373
+            _dispatch
+              #373
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #373
+              _string
+                "\n"
+              : _no_type
+              )
+            : _no_type
+            #378
+            _cond
+              #374
+              _eq
+                #374
+                _object
+                  ans
+                : _no_type
+                #374
+                _string
+                  "n"
+                : _no_type
+              : _no_type
+              #375
+              _bool
+                0
+              : _no_type
+              #377
+              _bool
+                1
+              : _no_type
+            : _no_type
+          : _no_type
+        : _no_type
+      : _no_type
+    #399
+    _method
+      prompt2
+      Bool
+      #398
+      _let
+        ans
+        String
+        #386
+        _no_expr
+        : _no_type
+        #397
+        _block
+          #388
+          _dispatch
+            #388
+            _object
+              self
+            : _no_type
+            out_string
+            (
+            #388
+            _string
+              "\n\n"
+            : _no_type
+            )
+          : _no_type
+          #389
+          _dispatch
+            #389
+            _object
+              self
+            : _no_type
+            out_string
+            (
+            #389
+            _string
+              "Would you like to choose a background pattern? \n"
+            : _no_type
+            )
+          : _no_type
+          #390
+          _dispatch
+            #390
+            _object
+              self
+            : _no_type
+            out_string
+            (
+            #390
+            _string
+              "Please use lowercase y or n for your answer [n]: "
+            : _no_type
+            )
+          : _no_type
+          #391
+          _assign
+            ans
+            #391
+            _dispatch
+              #391
+              _object
+                self
+              : _no_type
+              in_string
+              (
+              )
+            : _no_type
+          : _no_type
+          #396
+          _cond
+            #392
+            _eq
+              #392
+              _object
+                ans
+              : _no_type
+              #392
+              _string
+                "y"
+              : _no_type
+            : _no_type
+            #393
+            _bool
+              1
+            : _no_type
+            #395
+            _bool
+              0
+            : _no_type
+          : _no_type
+        : _no_type
+      : _no_type
+    )
+  #435
+  _class
+    Main
+    CellularAutomaton
+    "life.cl"
+    (
+    #405
+    _attr
+      cells
+      CellularAutomaton
+      #405
+      _no_expr
+      : _no_type
+    #434
+    _method
+      main
+      SELF_TYPE
+      #433
+      _block
+        #433
+        _let
+          continue
+          Bool
+          #409
+          _no_expr
+          : _no_type
+          #433
+          _let
+            choice
+            String
+            #410
+            _no_expr
+            : _no_type
+            #433
+            _block
+              #412
+              _dispatch
+                #412
+                _object
+                  self
+                : _no_type
+                out_string
+                (
+                #412
+                _string
+                  "Welcome to the Game of Life.\n"
+                : _no_type
+                )
+              : _no_type
+              #413
+              _dispatch
+                #413
+                _object
+                  self
+                : _no_type
+                out_string
+                (
+                #413
+                _string
+                  "There are many initial states to choose from. \n"
+                : _no_type
+                )
+              : _no_type
+              #431
+              _loop
+                #414
+                _dispatch
+                  #414
+                  _object
+                    self
+                  : _no_type
+                  prompt2
+                  (
+                  )
+                : _no_type
+                #430
+                _block
+                  #416
+                  _assign
+                    continue
+                    #416
+                    _bool
+                      1
+                    : _no_type
+                  : _no_type
+                  #417
+                  _assign
+                    choice
+                    #417
+                    _dispatch
+                      #417
+                      _object
+                        self
+                      : _no_type
+                      option
+                      (
+                      )
+                    : _no_type
+                  : _no_type
+                  #418
+                  _assign
+                    cells
+                    #418
+                    _dispatch
+                      #418
+                      _new
+                        CellularAutomaton
+                      : _no_type
+                      init
+                      (
+                      #418
+                      _object
+                        choice
+                      : _no_type
+                      )
+                    : _no_type
+                  : _no_type
+                  #419
+                  _dispatch
+                    #419
+                    _object
+                      cells
+                    : _no_type
+                    print
+                    (
+                    )
+                  : _no_type
+                  #429
+                  _loop
+                    #420
+                    _object
+                      continue
+                    : _no_type
+                    #428
+                    _cond
+                      #421
+                      _dispatch
+                        #421
+                        _object
+                          self
+                        : _no_type
+                        prompt
+                        (
+                        )
+                      : _no_type
+                      #425
+                      _block
+                        #423
+                        _dispatch
+                          #423
+                          _object
+                            cells
+                          : _no_type
+                          evolve
+                          (
+                          )
+                        : _no_type
+                        #424
+                        _dispatch
+                          #424
+                          _object
+                            cells
+                          : _no_type
+                          print
+                          (
+                          )
+                        : _no_type
+                      : _no_type
+                      #428
+                      _assign
+                        continue
+                        #427
+                        _bool
+                          0
+                        : _no_type
+                      : _no_type
+                    : _no_type
+                  : _no_type
+                : _no_type
+              : _no_type
+              #432
+              _object
+                self
+              : _no_type
+            : _no_type
+          : _no_type
+        : _no_type
+      : _no_type
+    )

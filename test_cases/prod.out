@@ -1,93 +1,168 @@
-#name "prod.cl"
-#1 CLASS
-#1 TYPEID Main
-#1 INHERITS
-#1 TYPEID IO
-#1 '{'
-#2 OBJECTID main
-#2 '('
-#2 ')'
-#2 ':'
-#2 TYPEID Object
-#2 '{'
-#3 '{'
-#4 OBJECTID out_string
-#4 '('
-#4 STR_CONST "Enter number of numbers to multiply\n"
-#4 ')'
-#4 ';'
-#5 OBJECTID out_int
-#5 '('
-#5 OBJECTID prod
-#5 '('
-#5 OBJECTID in_int
-#5 '('
-#5 ')'
-#5 ')'
-#5 ')'
-#5 ';'
-#6 OBJECTID out_string
-#6 '('
-#6 STR_CONST "\n"
-#6 ')'
-#6 ';'
-#7 '}'
-#8 '}'
-#8 ';'
-#10 OBJECTID prod
-#10 '('
-#10 OBJECTID i
-#10 ':'
-#10 TYPEID Int
-#10 ')'
-#10 ':'
-#10 TYPEID Int
-#10 '{'
-#11 LET
-#11 OBJECTID y
-#11 ':'
-#11 TYPEID Int
-#11 ASSIGN
-#11 INT_CONST 1
-#11 IN
-#11 '{'
-#12 WHILE
-#12 '('
-#12 NOT
-#12 '('
-#12 OBJECTID i
-#12 '='
-#12 INT_CONST 0
-#12 ')'
-#12 ')'
-#12 LOOP
-#12 '{'
-#13 OBJECTID out_string
-#13 '('
-#13 STR_CONST "Enter Number: "
-#13 ')'
-#13 ';'
-#14 OBJECTID y
-#14 ASSIGN
-#14 OBJECTID y
-#14 '*'
-#14 OBJECTID in_int
-#14 '('
-#14 ')'
-#14 ';'
-#15 OBJECTID i
-#15 ASSIGN
-#15 OBJECTID i
-#15 '-'
-#15 INT_CONST 1
-#15 ';'
-#16 '}'
-#17 POOL
-#17 ';'
-#18 OBJECTID y
-#18 ';'
-#19 '}'
-#20 '}'
-#20 ';'
-#21 '}'
-#21 ';'
+#21
+_program
+  #21
+  _class
+    Main
+    IO
+    "prod.cl"
+    (
+    #8
+    _method
+      main
+      Object
+      #7
+      _block
+        #4
+        _dispatch
+          #4
+          _object
+            self
+          : _no_type
+          out_string
+          (
+          #4
+          _string
+            "Enter number of numbers to multiply\n"
+          : _no_type
+          )
+        : _no_type
+        #5
+        _dispatch
+          #5
+          _object
+            self
+          : _no_type
+          out_int
+          (
+          #5
+          _dispatch
+            #5
+            _object
+              self
+            : _no_type
+            prod
+            (
+            #5
+            _dispatch
+              #5
+              _object
+                self
+              : _no_type
+              in_int
+              (
+              )
+            : _no_type
+            )
+          : _no_type
+          )
+        : _no_type
+        #6
+        _dispatch
+          #6
+          _object
+            self
+          : _no_type
+          out_string
+          (
+          #6
+          _string
+            "\n"
+          : _no_type
+          )
+        : _no_type
+      : _no_type
+    #20
+    _method
+      prod
+      #10
+      _formal
+        i
+        Int
+      Int
+      #20
+      _let
+        y
+        Int
+        #11
+        _int
+          1
+        : _no_type
+        #19
+        _block
+          #17
+          _loop
+            #12
+            _comp
+              #12
+              _eq
+                #12
+                _object
+                  i
+                : _no_type
+                #12
+                _int
+                  0
+                : _no_type
+              : _no_type
+            : _no_type
+            #16
+            _block
+              #13
+              _dispatch
+                #13
+                _object
+                  self
+                : _no_type
+                out_string
+                (
+                #13
+                _string
+                  "Enter Number: "
+                : _no_type
+                )
+              : _no_type
+              #14
+              _assign
+                y
+                #14
+                _mul
+                  #14
+                  _object
+                    y
+                  : _no_type
+                  #14
+                  _dispatch
+                    #14
+                    _object
+                      self
+                    : _no_type
+                    in_int
+                    (
+                    )
+                  : _no_type
+                : _no_type
+              : _no_type
+              #15
+              _assign
+                i
+                #15
+                _sub
+                  #15
+                  _object
+                    i
+                  : _no_type
+                  #15
+                  _int
+                    1
+                  : _no_type
+                : _no_type
+              : _no_type
+            : _no_type
+          : _no_type
+          #18
+          _object
+            y
+          : _no_type
+        : _no_type
+      : _no_type
+    )

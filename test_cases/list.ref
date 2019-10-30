@@ -1,265 +1,383 @@
-#name "list.cl"
-#26 CLASS
-#26 TYPEID List
-#26 '{'
-#29 OBJECTID isNil
-#29 '('
-#29 ')'
-#29 ':'
-#29 TYPEID Bool
-#29 '{'
-#29 BOOL_CONST true
-#29 '}'
-#29 ';'
-#35 OBJECTID head
-#35 '('
-#35 ')'
-#35 ':'
-#35 TYPEID Int
-#35 '{'
-#35 '{'
-#35 OBJECTID abort
-#35 '('
-#35 ')'
-#35 ';'
-#35 INT_CONST 0
-#35 ';'
-#35 '}'
-#35 '}'
-#35 ';'
-#40 OBJECTID tail
-#40 '('
-#40 ')'
-#40 ':'
-#40 TYPEID List
-#40 '{'
-#40 '{'
-#40 OBJECTID abort
-#40 '('
-#40 ')'
-#40 ';'
-#40 OBJECTID self
-#40 ';'
-#40 '}'
-#40 '}'
-#40 ';'
-#49 OBJECTID cons
-#49 '('
-#49 OBJECTID i
-#49 ':'
-#49 TYPEID Int
-#49 ')'
-#49 ':'
-#49 TYPEID List
-#49 '{'
-#50 '('
-#50 NEW
-#50 TYPEID Cons
-#50 ')'
-#50 '.'
-#50 OBJECTID init
-#50 '('
-#50 OBJECTID i
-#50 ','
-#50 OBJECTID self
-#50 ')'
-#51 '}'
-#51 ';'
-#53 '}'
-#53 ';'
-#70 CLASS
-#70 TYPEID Cons
-#70 INHERITS
-#70 TYPEID List
-#70 '{'
-#72 OBJECTID car
-#72 ':'
-#72 TYPEID Int
-#72 ';'
-#74 OBJECTID cdr
-#74 ':'
-#74 TYPEID List
-#74 ';'
-#76 OBJECTID isNil
-#76 '('
-#76 ')'
-#76 ':'
-#76 TYPEID Bool
-#76 '{'
-#76 BOOL_CONST false
-#76 '}'
-#76 ';'
-#78 OBJECTID head
-#78 '('
-#78 ')'
-#78 ':'
-#78 TYPEID Int
-#78 '{'
-#78 OBJECTID car
-#78 '}'
-#78 ';'
-#80 OBJECTID tail
-#80 '('
-#80 ')'
-#80 ':'
-#80 TYPEID List
-#80 '{'
-#80 OBJECTID cdr
-#80 '}'
-#80 ';'
-#82 OBJECTID init
-#82 '('
-#82 OBJECTID i
-#82 ':'
-#82 TYPEID Int
-#82 ','
-#82 OBJECTID rest
-#82 ':'
-#82 TYPEID List
-#82 ')'
-#82 ':'
-#82 TYPEID List
-#82 '{'
-#83 '{'
-#84 OBJECTID car
-#84 ASSIGN
-#84 OBJECTID i
-#84 ';'
-#85 OBJECTID cdr
-#85 ASSIGN
-#85 OBJECTID rest
-#85 ';'
-#86 OBJECTID self
-#86 ';'
-#87 '}'
-#88 '}'
-#88 ';'
-#90 '}'
-#90 ';'
-#100 CLASS
-#100 TYPEID Main
-#100 INHERITS
-#100 TYPEID IO
-#100 '{'
-#102 OBJECTID mylist
-#102 ':'
-#102 TYPEID List
-#102 ';'
-#107 OBJECTID print_list
-#107 '('
-#107 OBJECTID l
-#107 ':'
-#107 TYPEID List
-#107 ')'
-#107 ':'
-#107 TYPEID Object
-#107 '{'
-#108 IF
-#108 OBJECTID l
-#108 '.'
-#108 OBJECTID isNil
-#108 '('
-#108 ')'
-#108 THEN
-#108 OBJECTID out_string
-#108 '('
-#108 STR_CONST "\n"
-#108 ')'
-#109 ELSE
-#109 '{'
-#110 OBJECTID out_int
-#110 '('
-#110 OBJECTID l
-#110 '.'
-#110 OBJECTID head
-#110 '('
-#110 ')'
-#110 ')'
-#110 ';'
-#111 OBJECTID out_string
-#111 '('
-#111 STR_CONST " "
-#111 ')'
-#111 ';'
-#112 OBJECTID print_list
-#112 '('
-#112 OBJECTID l
-#112 '.'
-#112 OBJECTID tail
-#112 '('
-#112 ')'
-#112 ')'
-#112 ';'
-#113 '}'
-#114 FI
-#115 '}'
-#115 ';'
-#126 OBJECTID main
-#126 '('
-#126 ')'
-#126 ':'
-#126 TYPEID Object
-#126 '{'
-#127 '{'
-#128 OBJECTID mylist
-#128 ASSIGN
-#128 NEW
-#128 TYPEID List
-#128 '.'
-#128 OBJECTID cons
-#128 '('
-#128 INT_CONST 1
-#128 ')'
-#128 '.'
-#128 OBJECTID cons
-#128 '('
-#128 INT_CONST 2
-#128 ')'
-#128 '.'
-#128 OBJECTID cons
-#128 '('
-#128 INT_CONST 3
-#128 ')'
-#128 '.'
-#128 OBJECTID cons
-#128 '('
-#128 INT_CONST 4
-#128 ')'
-#128 '.'
-#128 OBJECTID cons
-#128 '('
-#128 INT_CONST 5
-#128 ')'
-#128 ';'
-#129 WHILE
-#129 '('
-#129 NOT
-#129 OBJECTID mylist
-#129 '.'
-#129 OBJECTID isNil
-#129 '('
-#129 ')'
-#129 ')'
-#129 LOOP
-#130 '{'
-#131 OBJECTID print_list
-#131 '('
-#131 OBJECTID mylist
-#131 ')'
-#131 ';'
-#132 OBJECTID mylist
-#132 ASSIGN
-#132 OBJECTID mylist
-#132 '.'
-#132 OBJECTID tail
-#132 '('
-#132 ')'
-#132 ';'
-#133 '}'
-#134 POOL
-#134 ';'
-#135 '}'
-#136 '}'
-#136 ';'
-#138 '}'
-#138 ';'
+#138
+_program
+  #53
+  _class
+    List
+    Object
+    "list.cl"
+    (
+    #29
+    _method
+      isNil
+      Bool
+      #29
+      _bool
+        1
+      : _no_type
+    #35
+    _method
+      head
+      Int
+      #35
+      _block
+        #35
+        _dispatch
+          #35
+          _object
+            self
+          : _no_type
+          abort
+          (
+          )
+        : _no_type
+        #35
+        _int
+          0
+        : _no_type
+      : _no_type
+    #40
+    _method
+      tail
+      List
+      #40
+      _block
+        #40
+        _dispatch
+          #40
+          _object
+            self
+          : _no_type
+          abort
+          (
+          )
+        : _no_type
+        #40
+        _object
+          self
+        : _no_type
+      : _no_type
+    #51
+    _method
+      cons
+      #49
+      _formal
+        i
+        Int
+      List
+      #50
+      _dispatch
+        #50
+        _new
+          Cons
+        : _no_type
+        init
+        (
+        #50
+        _object
+          i
+        : _no_type
+        #50
+        _object
+          self
+        : _no_type
+        )
+      : _no_type
+    )
+  #90
+  _class
+    Cons
+    List
+    "list.cl"
+    (
+    #72
+    _attr
+      car
+      Int
+      #72
+      _no_expr
+      : _no_type
+    #74
+    _attr
+      cdr
+      List
+      #74
+      _no_expr
+      : _no_type
+    #76
+    _method
+      isNil
+      Bool
+      #76
+      _bool
+        0
+      : _no_type
+    #78
+    _method
+      head
+      Int
+      #78
+      _object
+        car
+      : _no_type
+    #80
+    _method
+      tail
+      List
+      #80
+      _object
+        cdr
+      : _no_type
+    #88
+    _method
+      init
+      #82
+      _formal
+        i
+        Int
+      #82
+      _formal
+        rest
+        List
+      List
+      #87
+      _block
+        #84
+        _assign
+          car
+          #84
+          _object
+            i
+          : _no_type
+        : _no_type
+        #85
+        _assign
+          cdr
+          #85
+          _object
+            rest
+          : _no_type
+        : _no_type
+        #86
+        _object
+          self
+        : _no_type
+      : _no_type
+    )
+  #138
+  _class
+    Main
+    IO
+    "list.cl"
+    (
+    #102
+    _attr
+      mylist
+      List
+      #102
+      _no_expr
+      : _no_type
+    #115
+    _method
+      print_list
+      #107
+      _formal
+        l
+        List
+      Object
+      #114
+      _cond
+        #108
+        _dispatch
+          #108
+          _object
+            l
+          : _no_type
+          isNil
+          (
+          )
+        : _no_type
+        #108
+        _dispatch
+          #108
+          _object
+            self
+          : _no_type
+          out_string
+          (
+          #108
+          _string
+            "\n"
+          : _no_type
+          )
+        : _no_type
+        #113
+        _block
+          #110
+          _dispatch
+            #110
+            _object
+              self
+            : _no_type
+            out_int
+            (
+            #110
+            _dispatch
+              #110
+              _object
+                l
+              : _no_type
+              head
+              (
+              )
+            : _no_type
+            )
+          : _no_type
+          #111
+          _dispatch
+            #111
+            _object
+              self
+            : _no_type
+            out_string
+            (
+            #111
+            _string
+              " "
+            : _no_type
+            )
+          : _no_type
+          #112
+          _dispatch
+            #112
+            _object
+              self
+            : _no_type
+            print_list
+            (
+            #112
+            _dispatch
+              #112
+              _object
+                l
+              : _no_type
+              tail
+              (
+              )
+            : _no_type
+            )
+          : _no_type
+        : _no_type
+      : _no_type
+    #136
+    _method
+      main
+      Object
+      #135
+      _block
+        #128
+        _assign
+          mylist
+          #128
+          _dispatch
+            #128
+            _dispatch
+              #128
+              _dispatch
+                #128
+                _dispatch
+                  #128
+                  _dispatch
+                    #128
+                    _new
+                      List
+                    : _no_type
+                    cons
+                    (
+                    #128
+                    _int
+                      1
+                    : _no_type
+                    )
+                  : _no_type
+                  cons
+                  (
+                  #128
+                  _int
+                    2
+                  : _no_type
+                  )
+                : _no_type
+                cons
+                (
+                #128
+                _int
+                  3
+                : _no_type
+                )
+              : _no_type
+              cons
+              (
+              #128
+              _int
+                4
+              : _no_type
+              )
+            : _no_type
+            cons
+            (
+            #128
+            _int
+              5
+            : _no_type
+            )
+          : _no_type
+        : _no_type
+        #134
+        _loop
+          #129
+          _comp
+            #129
+            _dispatch
+              #129
+              _object
+                mylist
+              : _no_type
+              isNil
+              (
+              )
+            : _no_type
+          : _no_type
+          #133
+          _block
+            #131
+            _dispatch
+              #131
+              _object
+                self
+              : _no_type
+              print_list
+              (
+              #131
+              _object
+                mylist
+              : _no_type
+              )
+            : _no_type
+            #132
+            _assign
+              mylist
+              #132
+              _dispatch
+                #132
+                _object
+                  mylist
+                : _no_type
+                tail
+                (
+                )
+              : _no_type
+            : _no_type
+          : _no_type
+        : _no_type
+      : _no_type
+    )

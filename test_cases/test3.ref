@@ -1,7 +1,0 @@
-#name "test3.cl"
-#1 CLASS
-#1 TYPEID Error
-#1 '('
-#1 ')'
-#1 '{'
-#46 ERROR "EOF in comment"

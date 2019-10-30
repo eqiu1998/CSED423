@@ -1,121 +1,217 @@
-#name "palin.cl"
-#1 CLASS
-#1 TYPEID Main
-#1 INHERITS
-#1 TYPEID IO
-#1 '{'
-#2 OBJECTID main
-#2 '('
-#2 ')'
-#2 ':'
-#2 TYPEID Object
-#2 '{'
-#3 '{'
-#4 OBJECTID out_string
-#4 '('
-#4 STR_CONST "Enter string to check for palindrome\n"
-#4 ')'
-#4 ';'
-#5 LET
-#5 OBJECTID str
-#5 ':'
-#5 TYPEID String
-#5 ASSIGN
-#5 OBJECTID in_string
-#5 '('
-#5 ')'
-#5 IN
-#6 IF
-#6 '('
-#6 OBJECTID str
-#6 '='
-#6 OBJECTID reverse
-#6 '('
-#6 OBJECTID str
-#6 ')'
-#6 ')'
-#6 THEN
-#7 OBJECTID out_string
-#7 '('
-#7 STR_CONST "String is a Palindrome\n"
-#7 ')'
-#8 ELSE
-#9 OBJECTID out_string
-#9 '('
-#9 STR_CONST "String is not a Palindrome\n"
-#9 ')'
-#10 FI
-#10 ';'
-#11 '}'
-#12 '}'
-#12 ';'
-#14 OBJECTID reverse
-#14 '('
-#14 OBJECTID str
-#14 ':'
-#14 TYPEID String
-#14 ')'
-#14 ':'
-#14 TYPEID String
-#14 '{'
-#15 IF
-#15 '('
-#15 OBJECTID str
-#15 '.'
-#15 OBJECTID length
-#15 '('
-#15 ')'
-#15 '='
-#15 INT_CONST 1
-#15 ')'
-#15 THEN
-#15 OBJECTID str
-#16 ELSE
-#16 '('
-#16 NEW
-#16 TYPEID String
-#16 ')'
-#16 '.'
-#16 OBJECTID concat
-#16 '('
-#16 OBJECTID str
-#16 '.'
-#16 OBJECTID substr
-#16 '('
-#16 OBJECTID str
-#16 '.'
-#16 OBJECTID length
-#16 '('
-#16 ')'
-#16 '-'
-#16 INT_CONST 1
-#16 ','
-#16 INT_CONST 1
-#16 ')'
-#16 ')'
-#16 '.'
-#16 OBJECTID concat
-#16 '('
-#16 OBJECTID reverse
-#16 '('
-#16 OBJECTID str
-#16 '.'
-#16 OBJECTID substr
-#16 '('
-#16 INT_CONST 0
-#16 ','
-#16 OBJECTID str
-#16 '.'
-#16 OBJECTID length
-#16 '('
-#16 ')'
-#16 '-'
-#16 INT_CONST 1
-#16 ')'
-#16 ')'
-#16 ')'
-#17 FI
-#18 '}'
-#18 ';'
-#19 '}'
-#19 ';'
+#19
+_program
+  #19
+  _class
+    Main
+    IO
+    "palin.cl"
+    (
+    #12
+    _method
+      main
+      Object
+      #11
+      _block
+        #4
+        _dispatch
+          #4
+          _object
+            self
+          : _no_type
+          out_string
+          (
+          #4
+          _string
+            "Enter string to check for palindrome\n"
+          : _no_type
+          )
+        : _no_type
+        #10
+        _let
+          str
+          String
+          #5
+          _dispatch
+            #5
+            _object
+              self
+            : _no_type
+            in_string
+            (
+            )
+          : _no_type
+          #10
+          _cond
+            #6
+            _eq
+              #6
+              _object
+                str
+              : _no_type
+              #6
+              _dispatch
+                #6
+                _object
+                  self
+                : _no_type
+                reverse
+                (
+                #6
+                _object
+                  str
+                : _no_type
+                )
+              : _no_type
+            : _no_type
+            #7
+            _dispatch
+              #7
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #7
+              _string
+                "String is a Palindrome\n"
+              : _no_type
+              )
+            : _no_type
+            #9
+            _dispatch
+              #9
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #9
+              _string
+                "String is not a Palindrome\n"
+              : _no_type
+              )
+            : _no_type
+          : _no_type
+        : _no_type
+      : _no_type
+    #18
+    _method
+      reverse
+      #14
+      _formal
+        str
+        String
+      String
+      #17
+      _cond
+        #15
+        _eq
+          #15
+          _dispatch
+            #15
+            _object
+              str
+            : _no_type
+            length
+            (
+            )
+          : _no_type
+          #15
+          _int
+            1
+          : _no_type
+        : _no_type
+        #16
+        _object
+          str
+        : _no_type
+        #16
+        _dispatch
+          #16
+          _dispatch
+            #16
+            _new
+              String
+            : _no_type
+            concat
+            (
+            #16
+            _dispatch
+              #16
+              _object
+                str
+              : _no_type
+              substr
+              (
+              #16
+              _sub
+                #16
+                _dispatch
+                  #16
+                  _object
+                    str
+                  : _no_type
+                  length
+                  (
+                  )
+                : _no_type
+                #16
+                _int
+                  1
+                : _no_type
+              : _no_type
+              #16
+              _int
+                1
+              : _no_type
+              )
+            : _no_type
+            )
+          : _no_type
+          concat
+          (
+          #16
+          _dispatch
+            #16
+            _object
+              self
+            : _no_type
+            reverse
+            (
+            #16
+            _dispatch
+              #16
+              _object
+                str
+              : _no_type
+              substr
+              (
+              #16
+              _int
+                0
+              : _no_type
+              #16
+              _sub
+                #16
+                _dispatch
+                  #16
+                  _object
+                    str
+                  : _no_type
+                  length
+                  (
+                  )
+                : _no_type
+                #16
+                _int
+                  1
+                : _no_type
+              : _no_type
+              )
+            : _no_type
+            )
+          : _no_type
+          )
+        : _no_type
+      : _no_type
+    )

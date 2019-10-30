@@ -1,20 +1,27 @@
-#name "hello_world.cl"
-#1 CLASS
-#1 TYPEID Main
-#1 INHERITS
-#1 TYPEID IO
-#1 '{'
-#2 OBJECTID main
-#2 '('
-#2 ')'
-#2 ':'
-#2 TYPEID SELF_TYPE
-#2 '{'
-#3 OBJECTID out_string
-#3 '('
-#3 STR_CONST "Hello, World.\n"
-#3 ')'
-#4 '}'
-#4 ';'
-#5 '}'
-#5 ';'
+#5
+_program
+  #5
+  _class
+    Main
+    IO
+    "hello_world.cl"
+    (
+    #4
+    _method
+      main
+      SELF_TYPE
+      #3
+      _dispatch
+        #3
+        _object
+          self
+        : _no_type
+        out_string
+        (
+        #3
+        _string
+          "Hello, World.\n"
+        : _no_type
+        )
+      : _no_type
+    )

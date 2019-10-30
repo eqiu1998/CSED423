@@ -1,21 +1,27 @@
-#name "helloworld.cl"
-#1 CLASS
-#1 TYPEID Main
-#1 '{'
-#2 OBJECTID main
-#2 '('
-#2 ')'
-#2 ':'
-#2 TYPEID IO
-#2 '{'
-#3 NEW
-#3 TYPEID IO
-#3 '.'
-#3 OBJECTID out_string
-#3 '('
-#3 STR_CONST "Hello world!\n"
-#3 ')'
-#4 '}'
-#4 ';'
-#5 '}'
-#5 ';'
+#5
+_program
+  #5
+  _class
+    Main
+    Object
+    "helloworld.cl"
+    (
+    #4
+    _method
+      main
+      IO
+      #3
+      _dispatch
+        #3
+        _new
+          IO
+        : _no_type
+        out_string
+        (
+        #3
+        _string
+          "Hello world!\n"
+        : _no_type
+        )
+      : _no_type
+    )

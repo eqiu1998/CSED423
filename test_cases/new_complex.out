@@ -1,282 +1,459 @@
-#name "new_complex.cl"
-#1 CLASS
-#1 TYPEID Main
-#1 INHERITS
-#1 TYPEID IO
-#1 '{'
-#2 OBJECTID main
-#2 '('
-#2 ')'
-#2 ':'
-#2 TYPEID SELF_TYPE
-#2 '{'
-#3 '('
-#3 LET
-#3 OBJECTID c
-#3 ':'
-#3 TYPEID Complex
-#3 ASSIGN
-#3 '('
-#3 NEW
-#3 TYPEID Complex
-#3 ')'
-#3 '.'
-#3 OBJECTID init
-#3 '('
-#3 INT_CONST 1
-#3 ','
-#3 INT_CONST 1
-#3 ')'
-#3 IN
-#4 '{'
-#6 IF
-#6 OBJECTID c
-#6 '.'
-#6 OBJECTID reflect_X
-#6 '('
-#6 ')'
-#6 '='
-#6 OBJECTID c
-#6 '.'
-#6 OBJECTID reflect_0
-#6 '('
-#6 ')'
-#7 THEN
-#7 OBJECTID out_string
-#7 '('
-#7 STR_CONST "=)\n"
-#7 ')'
-#8 ELSE
-#8 OBJECTID out_string
-#8 '('
-#8 STR_CONST "=(\n"
-#8 ')'
-#9 FI
-#9 ';'
-#11 IF
-#11 OBJECTID c
-#11 '.'
-#11 OBJECTID reflect_X
-#11 '('
-#11 ')'
-#11 '.'
-#11 OBJECTID reflect_Y
-#11 '('
-#11 ')'
-#11 '.'
-#11 OBJECTID equal
-#11 '('
-#11 OBJECTID c
-#11 '.'
-#11 OBJECTID reflect_0
-#11 '('
-#11 ')'
-#11 ')'
-#12 THEN
-#12 OBJECTID out_string
-#12 '('
-#12 STR_CONST "=)\n"
-#12 ')'
-#13 ELSE
-#13 OBJECTID out_string
-#13 '('
-#13 STR_CONST "=(\n"
-#13 ')'
-#14 FI
-#14 ';'
-#15 '}'
-#16 ')'
-#17 '}'
-#17 ';'
-#18 '}'
-#18 ';'
-#20 CLASS
-#20 TYPEID Complex
-#20 INHERITS
-#20 TYPEID IO
-#20 '{'
-#21 OBJECTID x
-#21 ':'
-#21 TYPEID Int
-#21 ';'
-#22 OBJECTID y
-#22 ':'
-#22 TYPEID Int
-#22 ';'
-#24 OBJECTID init
-#24 '('
-#24 OBJECTID a
-#24 ':'
-#24 TYPEID Int
-#24 ','
-#24 OBJECTID b
-#24 ':'
-#24 TYPEID Int
-#24 ')'
-#24 ':'
-#24 TYPEID Complex
-#24 '{'
-#25 '{'
-#26 OBJECTID x
-#26 '='
-#26 OBJECTID a
-#26 ';'
-#27 OBJECTID y
-#27 '='
-#27 OBJECTID b
-#27 ';'
-#28 OBJECTID self
-#28 ';'
-#29 '}'
-#30 '}'
-#30 ';'
-#32 OBJECTID print
-#32 '('
-#32 ')'
-#32 ':'
-#32 TYPEID Object
-#32 '{'
-#33 IF
-#33 OBJECTID y
-#33 '='
-#33 INT_CONST 0
-#34 THEN
-#34 OBJECTID out_int
-#34 '('
-#34 OBJECTID x
-#34 ')'
-#35 ELSE
-#35 OBJECTID out_int
-#35 '('
-#35 OBJECTID x
-#35 ')'
-#35 '.'
-#35 OBJECTID out_string
-#35 '('
-#35 STR_CONST "+"
-#35 ')'
-#35 '.'
-#35 OBJECTID out_int
-#35 '('
-#35 OBJECTID y
-#35 ')'
-#35 '.'
-#35 OBJECTID out_string
-#35 '('
-#35 STR_CONST "I"
-#35 ')'
-#36 FI
-#37 '}'
-#37 ';'
-#39 OBJECTID reflect_0
-#39 '('
-#39 ')'
-#39 ':'
-#39 TYPEID Complex
-#39 '{'
-#40 '{'
-#41 OBJECTID x
-#41 '='
-#41 '~'
-#41 OBJECTID x
-#41 ';'
-#42 OBJECTID y
-#42 '='
-#42 '~'
-#42 OBJECTID y
-#42 ';'
-#43 OBJECTID self
-#43 ';'
-#44 '}'
-#45 '}'
-#45 ';'
-#47 OBJECTID reflect_X
-#47 '('
-#47 ')'
-#47 ':'
-#47 TYPEID Complex
-#47 '{'
-#48 '{'
-#49 OBJECTID y
-#49 '='
-#49 '~'
-#49 OBJECTID y
-#49 ';'
-#50 OBJECTID self
-#50 ';'
-#51 '}'
-#52 '}'
-#52 ';'
-#54 OBJECTID reflect_Y
-#54 '('
-#54 ')'
-#54 ':'
-#54 TYPEID Complex
-#54 '{'
-#55 '{'
-#56 OBJECTID x
-#56 '='
-#56 '~'
-#56 OBJECTID x
-#56 ';'
-#57 OBJECTID self
-#57 ';'
-#58 '}'
-#59 '}'
-#59 ';'
-#61 OBJECTID equal
-#61 '('
-#61 OBJECTID d
-#61 ':'
-#61 TYPEID Complex
-#61 ')'
-#61 ':'
-#61 TYPEID Bool
-#61 '{'
-#62 IF
-#62 OBJECTID x
-#62 '='
-#62 OBJECTID d
-#62 '.'
-#62 OBJECTID x_value
-#62 '('
-#62 ')'
-#63 THEN
-#64 IF
-#64 OBJECTID y
-#64 '='
-#64 OBJECTID d
-#64 '.'
-#64 OBJECTID y_value
-#64 '('
-#64 ')'
-#65 THEN
-#65 BOOL_CONST true
-#66 ELSE
-#66 BOOL_CONST false
-#67 FI
-#68 ELSE
-#68 BOOL_CONST false
-#69 FI
-#70 '}'
-#70 ';'
-#72 OBJECTID x_value
-#72 '('
-#72 ')'
-#72 ':'
-#72 TYPEID Int
-#72 '{'
-#73 OBJECTID x
-#74 '}'
-#74 ';'
-#76 OBJECTID y_value
-#76 '('
-#76 ')'
-#76 ':'
-#76 TYPEID Int
-#76 '{'
-#77 OBJECTID y
-#78 '}'
-#78 ';'
-#79 '}'
-#79 ';'
+#79
+_program
+  #18
+  _class
+    Main
+    IO
+    "new_complex.cl"
+    (
+    #17
+    _method
+      main
+      SELF_TYPE
+      #16
+      _let
+        c
+        Complex
+        #3
+        _dispatch
+          #3
+          _new
+            Complex
+          : _no_type
+          init
+          (
+          #3
+          _int
+            1
+          : _no_type
+          #3
+          _int
+            1
+          : _no_type
+          )
+        : _no_type
+        #15
+        _block
+          #9
+          _cond
+            #7
+            _eq
+              #6
+              _dispatch
+                #6
+                _object
+                  c
+                : _no_type
+                reflect_X
+                (
+                )
+              : _no_type
+              #6
+              _dispatch
+                #6
+                _object
+                  c
+                : _no_type
+                reflect_0
+                (
+                )
+              : _no_type
+            : _no_type
+            #7
+            _dispatch
+              #7
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #7
+              _string
+                "=)\n"
+              : _no_type
+              )
+            : _no_type
+            #8
+            _dispatch
+              #8
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #8
+              _string
+                "=(\n"
+              : _no_type
+              )
+            : _no_type
+          : _no_type
+          #14
+          _cond
+            #11
+            _dispatch
+              #11
+              _dispatch
+                #11
+                _dispatch
+                  #11
+                  _object
+                    c
+                  : _no_type
+                  reflect_X
+                  (
+                  )
+                : _no_type
+                reflect_Y
+                (
+                )
+              : _no_type
+              equal
+              (
+              #11
+              _dispatch
+                #11
+                _object
+                  c
+                : _no_type
+                reflect_0
+                (
+                )
+              : _no_type
+              )
+            : _no_type
+            #12
+            _dispatch
+              #12
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #12
+              _string
+                "=)\n"
+              : _no_type
+              )
+            : _no_type
+            #13
+            _dispatch
+              #13
+              _object
+                self
+              : _no_type
+              out_string
+              (
+              #13
+              _string
+                "=(\n"
+              : _no_type
+              )
+            : _no_type
+          : _no_type
+        : _no_type
+      : _no_type
+    )
+  #79
+  _class
+    Complex
+    IO
+    "new_complex.cl"
+    (
+    #21
+    _attr
+      x
+      Int
+      #21
+      _no_expr
+      : _no_type
+    #22
+    _attr
+      y
+      Int
+      #22
+      _no_expr
+      : _no_type
+    #30
+    _method
+      init
+      #24
+      _formal
+        a
+        Int
+      #24
+      _formal
+        b
+        Int
+      Complex
+      #29
+      _block
+        #26
+        _eq
+          #26
+          _object
+            x
+          : _no_type
+          #26
+          _object
+            a
+          : _no_type
+        : _no_type
+        #27
+        _eq
+          #27
+          _object
+            y
+          : _no_type
+          #27
+          _object
+            b
+          : _no_type
+        : _no_type
+        #28
+        _object
+          self
+        : _no_type
+      : _no_type
+    #37
+    _method
+      print
+      Object
+      #36
+      _cond
+        #34
+        _eq
+          #33
+          _object
+            y
+          : _no_type
+          #33
+          _int
+            0
+          : _no_type
+        : _no_type
+        #34
+        _dispatch
+          #34
+          _object
+            self
+          : _no_type
+          out_int
+          (
+          #34
+          _object
+            x
+          : _no_type
+          )
+        : _no_type
+        #35
+        _dispatch
+          #35
+          _dispatch
+            #35
+            _dispatch
+              #35
+              _dispatch
+                #35
+                _object
+                  self
+                : _no_type
+                out_int
+                (
+                #35
+                _object
+                  x
+                : _no_type
+                )
+              : _no_type
+              out_string
+              (
+              #35
+              _string
+                "+"
+              : _no_type
+              )
+            : _no_type
+            out_int
+            (
+            #35
+            _object
+              y
+            : _no_type
+            )
+          : _no_type
+          out_string
+          (
+          #35
+          _string
+            "I"
+          : _no_type
+          )
+        : _no_type
+      : _no_type
+    #45
+    _method
+      reflect_0
+      Complex
+      #44
+      _block
+        #41
+        _eq
+          #41
+          _object
+            x
+          : _no_type
+          #41
+          _neg
+            #41
+            _object
+              x
+            : _no_type
+          : _no_type
+        : _no_type
+        #42
+        _eq
+          #42
+          _object
+            y
+          : _no_type
+          #42
+          _neg
+            #42
+            _object
+              y
+            : _no_type
+          : _no_type
+        : _no_type
+        #43
+        _object
+          self
+        : _no_type
+      : _no_type
+    #52
+    _method
+      reflect_X
+      Complex
+      #51
+      _block
+        #49
+        _eq
+          #49
+          _object
+            y
+          : _no_type
+          #49
+          _neg
+            #49
+            _object
+              y
+            : _no_type
+          : _no_type
+        : _no_type
+        #50
+        _object
+          self
+        : _no_type
+      : _no_type
+    #59
+    _method
+      reflect_Y
+      Complex
+      #58
+      _block
+        #56
+        _eq
+          #56
+          _object
+            x
+          : _no_type
+          #56
+          _neg
+            #56
+            _object
+              x
+            : _no_type
+          : _no_type
+        : _no_type
+        #57
+        _object
+          self
+        : _no_type
+      : _no_type
+    #70
+    _method
+      equal
+      #61
+      _formal
+        d
+        Complex
+      Bool
+      #69
+      _cond
+        #63
+        _eq
+          #62
+          _object
+            x
+          : _no_type
+          #62
+          _dispatch
+            #62
+            _object
+              d
+            : _no_type
+            x_value
+            (
+            )
+          : _no_type
+        : _no_type
+        #67
+        _cond
+          #65
+          _eq
+            #64
+            _object
+              y
+            : _no_type
+            #64
+            _dispatch
+              #64
+              _object
+                d
+              : _no_type
+              y_value
+              (
+              )
+            : _no_type
+          : _no_type
+          #65
+          _bool
+            1
+          : _no_type
+          #66
+          _bool
+            0
+          : _no_type
+        : _no_type
+        #68
+        _bool
+          0
+        : _no_type
+      : _no_type
+    #74
+    _method
+      x_value
+      Int
+      #74
+      _object
+        x
+      : _no_type
+    #78
+    _method
+      y_value
+      Int
+      #78
+      _object
+        y
+      : _no_type
+    )

@@ -1,67 +1,128 @@
-#name "fact.cl"
-#1 CLASS
-#1 TYPEID Main
-#1 INHERITS
-#1 TYPEID IO
-#1 '{'
-#3 OBJECTID main
-#3 '('
-#3 ')'
-#3 ':'
-#3 TYPEID Object
-#3 '{'
-#4 '{'
-#5 OBJECTID out_string
-#5 '('
-#5 STR_CONST "Enter number to find factorial!\n"
-#5 ')'
-#5 ';'
-#6 OBJECTID out_int
-#6 '('
-#6 OBJECTID fact
-#6 '('
-#6 OBJECTID in_int
-#6 '('
-#6 ')'
-#6 ')'
-#6 ')'
-#6 ';'
-#7 OBJECTID out_string
-#7 '('
-#7 STR_CONST "\n"
-#7 ')'
-#7 ';'
-#8 '}'
-#9 '}'
-#9 ';'
-#11 OBJECTID fact
-#11 '('
-#11 OBJECTID i
-#11 ':'
-#11 TYPEID Int
-#11 ')'
-#11 ':'
-#11 TYPEID Int
-#11 '{'
-#12 IF
-#12 '('
-#12 OBJECTID i
-#12 '='
-#12 INT_CONST 0
-#12 ')'
-#12 THEN
-#12 INT_CONST 1
-#12 ELSE
-#12 OBJECTID i
-#12 '*'
-#12 OBJECTID fact
-#12 '('
-#12 OBJECTID i
-#12 '-'
-#12 INT_CONST 1
-#12 ')'
-#12 FI
-#13 '}'
-#13 ';'
-#14 '}'
-#14 ';'
+#14
+_program
+  #14
+  _class
+    Main
+    IO
+    "fact.cl"
+    (
+    #9
+    _method
+      main
+      Object
+      #8
+      _block
+        #5
+        _dispatch
+          #5
+          _object
+            self
+          : _no_type
+          out_string
+          (
+          #5
+          _string
+            "Enter number to find factorial!\n"
+          : _no_type
+          )
+        : _no_type
+        #6
+        _dispatch
+          #6
+          _object
+            self
+          : _no_type
+          out_int
+          (
+          #6
+          _dispatch
+            #6
+            _object
+              self
+            : _no_type
+            fact
+            (
+            #6
+            _dispatch
+              #6
+              _object
+                self
+              : _no_type
+              in_int
+              (
+              )
+            : _no_type
+            )
+          : _no_type
+          )
+        : _no_type
+        #7
+        _dispatch
+          #7
+          _object
+            self
+          : _no_type
+          out_string
+          (
+          #7
+          _string
+            "\n"
+          : _no_type
+          )
+        : _no_type
+      : _no_type
+    #13
+    _method
+      fact
+      #11
+      _formal
+        i
+        Int
+      Int
+      #12
+      _cond
+        #12
+        _eq
+          #12
+          _object
+            i
+          : _no_type
+          #12
+          _int
+            0
+          : _no_type
+        : _no_type
+        #12
+        _int
+          1
+        : _no_type
+        #12
+        _mul
+          #12
+          _object
+            i
+          : _no_type
+          #12
+          _dispatch
+            #12
+            _object
+              self
+            : _no_type
+            fact
+            (
+            #12
+            _sub
+              #12
+              _object
+                i
+              : _no_type
+              #12
+              _int
+                1
+              : _no_type
+            : _no_type
+            )
+          : _no_type
+        : _no_type
+      : _no_type
+    )
