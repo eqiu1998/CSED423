@@ -59,3 +59,8 @@ Temporary Items
 # End of https://www.gitignore.io/api/linux,macos,visualstudiocode
 
 reflex
+
+test_cases/*.out
+test_cases/*.ref
+parser_testcases/*.out
+parser_testcases/*.ref
