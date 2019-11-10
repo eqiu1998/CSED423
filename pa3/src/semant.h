@@ -42,9 +42,15 @@ public:
   ostream& semant_error(Class_ c);
   ostream& semant_error(Symbol filename, tree_node *t);
 
-  SymbolTable<Symbol, Class__class> *class_table;
+  cool::SymbolTable<Symbol, Class__class> *class_table;
 };
 
+class InheritanceGraph {
+public:
+  std::map<Symbol, Symbol> graph;
+  bool conform(const Symbol &, const Symbol &);
+  Symbol lca(Symbol, Symbol);
+};
 
 #endif
 

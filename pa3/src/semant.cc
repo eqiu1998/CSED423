@@ -12,7 +12,8 @@ extern char *curr_filename;
 
 Class_ curr_class;
 ClassTable *classtable;
-SymbolTable<char *, Entry> *symboltable;
+cool::SymbolTable<char *, Entry> *symboltable;
+InheritanceGraph* inheritance_graph;
 
 //////////////////////////////////////////////////////////////////////
 //
@@ -89,7 +90,7 @@ ClassTable::ClassTable(Classes classes) : semant_errors(0) , error_stream(cerr) 
 
     /* Fill this in */
     this->class_list = classes;
-    this->class_table = new SymbolTable<Symbol, Class__class>();
+    this->class_table = new cool::SymbolTable<Symbol, Class__class>();
     this->class_table->enterscope();
 
     install_basic_classes();
@@ -298,7 +299,7 @@ bool ClassTable::check_structure()
 {
     bool ret_val = true;
 
-    std::map<Symbol, Symbol> inheritance_graph;
+    std::map<Symbol, Symbol> InheritanceGraph;
     std::map<Symbol, int> indegree_list;
 
     Class_ cls;
@@ -312,9 +313,9 @@ bool ClassTable::check_structure()
         parent_name_symbol = cls->get_parent_symbol_name();
 
         // If the class symbol is not in the inheritance graph, add it in
-        if (inheritance_graph.find(class_name_symbol) == inheritance_graph.end())
+        if (InheritanceGraph.find(class_name_symbol) == InheritanceGraph.end())
         {
-            inheritance_graph.insert(std::pair<Symbol, Symbol>(class_name_symbol, parent_name_symbol));
+            InheritanceGraph.insert(std::pair<Symbol, Symbol>(class_name_symbol, parent_name_symbol));
 
             // Now fill in the list of indegrees, first update the list with this class
             if (indegree_list.find(class_name_symbol) == indegree_list.end())
@@ -344,17 +345,17 @@ bool ClassTable::check_structure()
     while (!no_indegree_symbols.empty())
     {
         class_name_symbol = no_indegree_symbols.front();
-        parent_name_symbol = inheritance_graph[class_name_symbol];
+        parent_name_symbol = InheritanceGraph[class_name_symbol];
 
         indegree_list[parent_name_symbol]--;
         if (indegree_list[parent_name_symbol] == 0)
             no_indegree_symbols.push(parent_name_symbol);
 
         no_indegree_symbols.pop();
-        inheritance_graph.erase(class_name_symbol);
+        InheritanceGraph.erase(class_name_symbol);
     }
 
-    if (!inheritance_graph.empty())
+    if (!InheritanceGraph.empty())
     {
         semant_error();
         this->error_stream << " CRITICAL: Cyclic inheritance detected!" << endl;
@@ -398,16 +399,7 @@ ostream& ClassTable::semant_error()
 
 /** additional code **/
 
-class inheritance_graph
-{
-public:
-    std::map<Symbol, Symbol> graph;
-    bool conform(const Symbol &, const Symbol &);
-    Symbol lca(Symbol, Symbol);
-    // lowest common ancestor
-} * g;
-
-bool inheritance_graph::conform(const Symbol &a, const Symbol &b)
+bool InheritanceGraph::conform(const Symbol &a, const Symbol &b)
 {
     Symbol cur = a;
     if (a == b)
@@ -425,7 +417,7 @@ bool inheritance_graph::conform(const Symbol &a, const Symbol &b)
     return cur == b;
 }
 
-Symbol inheritance_graph::lca(Symbol a, Symbol b)
+Symbol InheritanceGraph::lca(Symbol a, Symbol b)
 {
     if (a == b)
         return a;
@@ -652,7 +644,7 @@ void method_class::check()
 
     expr->check();
 
-    if (g->conform(expr->get_type(), return_type) == false)
+    if (inheritance_graph->conform(expr->get_type(), return_type) == false)
     {
         throw "types don't conform";
     }
@@ -696,7 +688,7 @@ void attr_class::check()
     init->check();
 
     Symbol init_type = init->get_type();
-    if (init_type != No_type && g->conform(init_type, type_decl) == false)
+    if (init_type != No_type && inheritance_graph->conform(init_type, type_decl) == false)
     {
         throw "type error in attr_class";
     }
@@ -758,7 +750,7 @@ void assign_class::check()
         throw "type error in object_class";
     }
 
-    if (g->conform(exprtype, mytype) == false)
+    if (inheritance_graph->conform(exprtype, mytype) == false)
     {
         throw "type error in assign_class";
     }
@@ -771,7 +763,7 @@ void static_dispatch_class::check()
 
     Symbol expr_type = expr->get_type();
 
-    if (g->conform(expr_type, type_name) == false)
+    if (inheritance_graph->conform(expr_type, type_name) == false)
     {
         throw "type error in static_dispatch_class";
     }
@@ -808,7 +800,7 @@ void static_dispatch_class::check()
         act->check();
         Symbol nth_formal_type = formals_type->nth(i)->get_formal_type();
 
-        if (g->conform(act->get_type(), nth_formal_type) == false)
+        if (inheritance_graph->conform(act->get_type(), nth_formal_type) == false)
         {
             throw "type error in dispatch_class";
         }
@@ -857,7 +849,7 @@ void dispatch_class::check()
         Expression act = actual->nth(i);
         act->check();
         Symbol nth_formal_type = formals_type->nth(i)->get_formal_type();
-        if (g->conform(act->get_type(), nth_formal_type) == false)
+        if (inheritance_graph->conform(act->get_type(), nth_formal_type) == false)
         {
             throw "type error in dispatch_class";
         }
@@ -877,7 +869,7 @@ void cond_class::check()
     then_exp->check();
     else_exp->check();
 
-    Symbol join_type = g->lca(then_exp->get_type(), else_exp->get_type());
+    Symbol join_type = inheritance_graph->lca(then_exp->get_type(), else_exp->get_type());
     type = join_type;
 }
 
@@ -898,7 +890,7 @@ void typcase_class::check()
     Symbol expr_type = expr->get_type();
     Symbol join_type = NULL;
 
-    SymbolTable<char *, Entry> *casetable = new SymbolTable<char *, Entry>();
+    cool::SymbolTable<char *, Entry> *casetable = new cool::SymbolTable<char *, Entry>();
     casetable->enterscope();
 
     for (int i = cases->first(); cases->more(i); i = cases->next(i))
@@ -914,14 +906,14 @@ void typcase_class::check()
 
         c->check();
 
-        if (g->conform(c->get_expr_type(), c->get_decl_type()) == false)
+        if (inheritance_graph->conform(c->get_expr_type(), c->get_decl_type()) == false)
         {
             throw "type error in typcase_class";
         }
         if (join_type == NULL)
             join_type = c->get_expr_type();
         else
-            join_type = g->lca(join_type, c->get_expr_type());
+            join_type = inheritance_graph->lca(join_type, c->get_expr_type());
 
         symboltable->exitscope();
     }
@@ -954,7 +946,7 @@ void let_class::check()
 
     Symbol init_type = init->get_type();
 
-    if (init_type != No_type && g->conform(init_type, type_decl) == false)
+    if (init_type != No_type && inheritance_graph->conform(init_type, type_decl) == false)
     {
         throw "type error in let_class";
     }
@@ -1158,7 +1150,7 @@ void object_class::check()
  */
 void program_class::semant()
 {
-    // Phase I: Check class definitions
+    // Check class definitions
     initialize_constants();
 
     classtable = new ClassTable(classes);
@@ -1169,21 +1161,20 @@ void program_class::semant()
         exit(1);
     }
 
-    // Phase II: Check the rest
-    symboltable = new SymbolTable<char *, Entry>();
+    // Check the form
+    symboltable = new cool::SymbolTable<char *, Entry>();
 
-    // build the inheritance graph quickly again
-    g = new inheritance_graph();
-    g->graph[IO] = Object;
-    g->graph[Int] = Object;
-    g->graph[Bool] = Object;
-    g->graph[Str] = Object;
+    inheritance_graph = new InheritanceGraph();
+    inheritance_graph->graph[IO] = Object;
+    inheritance_graph->graph[Int] = Object;
+    inheritance_graph->graph[Bool] = Object;
+    inheritance_graph->graph[Str] = Object;
     for (int i = classes->first(); classes->more(i); i = classes->next(i))
     {
         curr_class = classes->nth(i);
         Symbol a = curr_class->get_symbol_name();
         Symbol b = curr_class->get_parent_symbol_name();
-        g->graph[a] = b;
+        inheritance_graph->graph[a] = b;
     }
 
     // adapt the simpler error-handling machanism
@@ -1201,33 +1192,3 @@ void program_class::semant()
         exit(1);
     }
 }
-
-/*   This is the entry point to the semantic checker.
-
-     Your checker should do the following two things:
-
-     1) Check that the program is semantically correct
-     2) Decorate the abstract syntax tree with type information
-        by setting the `type' field in each Expression node.
-        (see `tree.h')
-
-     You are free to first do 1), make sure you catch all semantic
-     errors. Part 2) can be done in a second stage, when you want
-     to build mycoolc.
- */
-void program_class::semant()
-{
-    initialize_constants();
-
-    /* ClassTable constructor may do some semantic analysis */
-    ClassTable *classtable = new ClassTable(classes);
-
-    /* some semantic analysis code may go here */
-
-    if (classtable->errors()) {
-	cerr << "Compilation halted due to static semantic errors." << endl;
-	exit(1);
-    }
-}
-
-
