@@ -30,7 +30,7 @@
 // in fact only 79 spaces were there; I've made it 80 now
 //                                1         2         3         4         5         6         7
 //                      01234567890123456789012345678901234567890123456789012345678901234567890123456789
-static const char *padding = "                                                                                ";      // 80 spaces for padding
+static char *padding = (char *)"                                                                                ";      // 80 spaces for padding
 
 void fatal_error(char *msg)
 {
@@ -72,53 +72,53 @@ void print_escaped_string(ostream& str, const char *s)
 //
 // The following two functions are used for debugging the parser.
 //
-const char *cool_token_to_string(int tok)
+char *cool_token_to_string(int tok)
 {
   switch (tok) {
-  case 0:            return("EOF");        break;
-  case (CLASS):      return("CLASS");      break;
-  case (ELSE):       return("ELSE");       break;
-  case (FI):         return("FI");         break;
-  case (IF):         return("IF");         break;
-  case (IN):         return("IN");         break;
-  case (INHERITS):   return("INHERITS");   break;
-  case (LET):        return("LET");        break;
-  case (LOOP):       return("LOOP");       break;
-  case (POOL):       return("POOL");       break;
-  case (THEN):       return("THEN");       break;
-  case (WHILE):      return("WHILE");      break;
-  case (ASSIGN):     return("ASSIGN");     break;
-  case (CASE):       return("CASE");       break;
-  case (ESAC):       return("ESAC");       break;
-  case (OF):         return("OF");         break;
-  case (DARROW):     return("DARROW");     break;
-  case (NEW):        return("NEW");        break;
-  case (STR_CONST):  return("STR_CONST");  break;
-  case (INT_CONST):  return("INT_CONST");  break;
-  case (BOOL_CONST): return("BOOL_CONST"); break;
-  case (TYPEID):     return("TYPEID");     break;
-  case (OBJECTID):   return("OBJECTID");   break;
-  case (ERROR):      return("ERROR");      break;
-  case (LE):         return("LE");         break;
-  case (NOT):        return("NOT");        break;
-  case (ISVOID):     return("ISVOID");     break;
-  case '+': return("'+'"); break;
-  case '/': return("'/'"); break;
-  case '-': return("'-'"); break;
-  case '*': return("'*'"); break;
-  case '=': return("'='"); break;
-  case '<': return("'<'"); break;
-  case '.': return("'.'"); break;
-  case '~': return("'~'"); break;
-  case ',': return("','"); break;
-  case ';': return("';'"); break;
-  case ':': return("':'"); break;
-  case '(': return("'('"); break;
-  case ')': return("')'"); break;
-  case '@': return("'@'"); break;
-  case '{': return("'{'"); break;
-  case '}': return("'}'"); break;
-  default:  return("<Invalid Token>");
+  case 0:            return((char *)"EOF");        break;
+  case (CLASS):      return((char *)"CLASS");      break;
+  case (ELSE):       return((char *)"ELSE");       break;
+  case (FI):         return((char *)"FI");         break;
+  case (IF):         return((char *)"IF");         break;
+  case (IN):         return((char *)"IN");         break;
+  case (INHERITS):   return((char *)"INHERITS");   break;
+  case (LET):        return((char *)"LET");        break;
+  case (LOOP):       return((char *)"LOOP");       break;
+  case (POOL):       return((char *)"POOL");       break;
+  case (THEN):       return((char *)"THEN");       break;
+  case (WHILE):      return((char *)"WHILE");      break;
+  case (ASSIGN):     return((char *)"ASSIGN");     break;
+  case (CASE):       return((char *)"CASE");       break;
+  case (ESAC):       return((char *)"ESAC");       break;
+  case (OF):         return((char *)"OF");         break;
+  case (DARROW):     return((char *)"DARROW");     break;
+  case (NEW):        return((char *)"NEW");        break;
+  case (STR_CONST):  return((char *)"STR_CONST");  break;
+  case (INT_CONST):  return((char *)"INT_CONST");  break;
+  case (BOOL_CONST): return((char *)"BOOL_CONST"); break;
+  case (TYPEID):     return((char *)"TYPEID");     break;
+  case (OBJECTID):   return((char *)"OBJECTID");   break;
+  case (ERROR):      return((char *)"ERROR");      break;
+  case (LE):         return((char *)"LE");         break;
+  case (NOT):        return((char *)"NOT");        break;
+  case (ISVOID):     return((char *)"ISVOID");     break;
+  case '+': return((char *)"'+'"); break;
+  case '/': return((char *)"'/'"); break;
+  case '-': return((char *)"'-'"); break;
+  case '*': return((char *)"'*'"); break;
+  case '=': return((char *)"'='"); break;
+  case '<': return((char *)"'<'"); break;
+  case '.': return((char *)"'.'"); break;
+  case '~': return((char *)"'~'"); break;
+  case ',': return((char *)"','"); break;
+  case ';': return((char *)"';'"); break;
+  case ':': return((char *)"':'"); break;
+  case '(': return((char *)"'('"); break;
+  case ')': return((char *)"')'"); break;
+  case '@': return((char *)"'@'"); break;
+  case '{': return((char *)"'{'"); break;
+  case '}': return((char *)"'}'"); break;
+  default:  return((char *)"<Invalid Token>");
   }
 }
 
@@ -215,8 +215,8 @@ void dump_cool_token(ostream& out, int lineno, int token, YYSTYPE yylval) {
 // function to add pad
 //
 ///////////////////////////////////////////////////////////////////////////
-const char *pad(int n) {
+char *pad(int n) {
     if (n > 80) return padding;
-    if (n <= 0)  return "";
+    if (n <= 0)  return (char *)"";
     return padding+(80-n);
 }

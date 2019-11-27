@@ -13,6 +13,7 @@
 #include <string.h>
 #include "list.h"    // list template
 #include "cool-io.h"
+#include "stringtab.handcode.h"
 
 class Entry;
 typedef Entry* Symbol;
@@ -32,10 +33,10 @@ protected:
   int  len;      // the length of the string (without trailing \0)
   int index;     // a unique index for each string
 public:
-  Entry(const char *s, int l, int i);
+  Entry(char *s, int l, int i);
 
   // is string argument equal to the str of this Entry?
-  int equal_string(const char *s, int len) const;  
+  int equal_string(char *s, int len) const;  
                          
   // is the integer argument equal to the index of this Entry?
   bool equal_index(int ind) const           { return ind == index; }
@@ -43,7 +44,7 @@ public:
   ostream& print(ostream& s) const;
 
   // Return the str and len components of the Entry.
-  const char *get_string() const;
+  char *get_string() const;
   int get_len() const;
 };
 
@@ -62,21 +63,25 @@ public:
 //
 class StringEntry : public Entry {
 public:
-  void code_def(ostream& str, int stringclasstag);
-  void code_ref(ostream& str);
-  StringEntry(const char *s, int l, int i);
+  StringEntry(char *s, int l, int i);
+
+#ifdef StringEntry_EXTRAS
+   StringEntry_EXTRAS
+#endif
 };
 
 class IdEntry : public Entry {
 public:
-  IdEntry(const char *s, int l, int i);
+  IdEntry(char *s, int l, int i);
 };
 
 class IntEntry: public Entry {
 public:
-  void code_def(ostream& str, int intclasstag);
-  void code_ref(ostream& str);
-  IntEntry(const char *s, int l, int i);
+  IntEntry(char *s, int l, int i);
+
+#ifdef IntEntry_EXTRAS
+   IntEntry_EXTRAS
+#endif
 };
 
 typedef StringEntry *StringEntryP;
@@ -102,10 +107,10 @@ public:
    // Returns a pointer to the string table entry with the string.
 
    // add the prefix of s of length maxchars
-   Elem *add_string(const char *s, int maxchars);
+   Elem *add_string(char *s, int maxchars);
 
    // add the (null terminated) string s
-   Elem *add_string(const char *s);
+   Elem *add_string(char *s);
 
    // add the string representation of an integer
    Elem *add_int(int i);
@@ -117,7 +122,7 @@ public:
    int next(int i);   // next index
 
    Elem *lookup(int index);      // lookup an element using its index
-   Elem *lookup_string(const char *s); // lookup an element using its string
+   Elem *lookup_string(char *s); // lookup an element using its string
 
    void print();  // print the entire table; for debugging
 
@@ -128,13 +133,17 @@ class IdTable : public StringTable<IdEntry> { };
 class StrTable : public StringTable<StringEntry>
 {
 public: 
-   void code_string_table(ostream&, int classtag);
+#ifdef StrTable_EXTRAS
+   StrTable_EXTRAS
+#endif
 };
 
 class IntTable : public StringTable<IntEntry>
 {
 public:
-   void code_string_table(ostream&, int classtag);
+#ifdef IntTable_EXTRAS
+   IntTable_EXTRAS
+#endif
 };
 
 extern IdTable idtable;

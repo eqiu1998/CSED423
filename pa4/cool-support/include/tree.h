@@ -132,7 +132,7 @@ public:
     static list_node<Elem> *append(list_node<Elem> *l1,list_node<Elem> *l2);
 };
 
-const char *pad(int n);
+char *pad(int n);
 
 extern int info_size;
 

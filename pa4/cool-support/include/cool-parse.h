@@ -60,7 +60,7 @@ typedef union {
   Cases cases;
   Expression expression;
   Expressions expressions;
-  const char *error_msg;
+  char *error_msg;
 } yystype;
 # define YYSTYPE yystype
 # define YYSTYPE_IS_TRIVIAL 1

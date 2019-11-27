@@ -86,7 +86,7 @@ public:
    SymbolTable(): tbl(NULL) { }     // create a new symbol table
 
    // Create pointer to current symbol table.
-   SymbolTable &operator =(const SymbolTable &s) { tbl = s.tbl; return *this; }
+   //SymbolTable &operator =(const SymbolTable &s) { tbl = s.tbl; return *this; }
 
    void fatal_error(char * msg)
    {
@@ -111,18 +111,28 @@ public:
    {
        // It is an error to exit a scope that doesn't exist.
        if (tbl == NULL) {
-	   fatal_error("exitscope: Can't remove scope from an empty symbol table.");
+	   fatal_error((char *)"exitscope: Can't remove scope from an empty symbol table.");
        }
+       ScopeList *exited = tbl;
        tbl = tbl->tl();
+
+       for (Scope *i = exited->hd(), *next; i != NULL; i = next) {
+           next = i->tl();
+           delete i->hd();
+           delete i;
+       }
+       delete exited;
    }
 
    // Add an item to the symbol table.
    ScopeEntry *addid(SYM s, DAT *i)
    {
        // There must be at least one scope to add a symbol.
-       if (tbl == NULL) fatal_error("addid: Can't add a symbol without a scope.");
+       if (tbl == NULL) fatal_error((char *)"addid: Can't add a symbol without a scope.");
        ScopeEntry * se = new ScopeEntry(s,i);
+       ScopeList * oldScopeList = tbl;
        tbl = new ScopeList(new Scope(se, tbl->hd()), tbl->tl());
+       delete oldScopeList;
        return(se);
    }
    
@@ -147,7 +157,7 @@ public:
    DAT *probe(SYM s)
    {
        if (tbl == NULL) {
-	   fatal_error("probe: No scope in symbol table.");
+	   fatal_error((char *)"probe: No scope in symbol table.");
        }
        for(Scope *i = tbl->hd(); i != NULL; i = i->tl()) {
 	   if (s == i->hd()->get_id()) {

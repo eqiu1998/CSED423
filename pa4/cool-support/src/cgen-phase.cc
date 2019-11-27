@@ -23,6 +23,14 @@ int main(int argc, char *argv[]) {
   handle_flags(argc,argv);
   firstfile_index = optind;
 
+  if (optind < argc) {
+    ast_file = fopen(argv[optind], "r");
+    if (!ast_file) {
+      cerr << "Cannot open input file " << argv[optind] << endl;
+      exit(1);
+    }
+  }
+
   if (!out_filename && optind < argc) {   // no -o option
       char *dot = strrchr(argv[optind], '.');
       if (dot) *dot = '\0'; // strip off file extension

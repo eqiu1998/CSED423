@@ -202,7 +202,7 @@ void ClassTable::install_basic_classes() {
 						      Str, 
 						      no_expr()))),
 	       filename);
-    // insert the initialized classes into the inheritanceGraph
+
     this->class_list = append_Classes(single_Classes(Object_class), this->class_list);
     this->class_list = append_Classes(single_Classes(IO_class), this->class_list);
     this->class_list = append_Classes(single_Classes(Int_class), this->class_list);
@@ -220,7 +220,6 @@ void ClassTable::construct()
 
     this->class_table->addid(No_class, NULL);
 
-    // iterate over class_list, constructing class table
     for (int i = this->class_list->first(); this->class_list->more(i); i = this->class_list->next(i))
     {
         cls = this->class_list->nth(i);
@@ -263,11 +262,9 @@ void ClassTable::construct()
 
 void ClassTable::check_inheritance()
 {
-    // First check if all parents are defined.
     if (!check_parents())
         return;
 
-    // Then construct the inheritance graph and verify if it is a DAG
     check_structure();
 }
 
@@ -278,7 +275,6 @@ bool ClassTable::check_parents()
     Class_ cls;
     Symbol parent_name_symbol;
 
-    // Iterate through the class list and query the class table for existence of parent classes
     for (int i = this->class_list->first(); this->class_list->more(i); i = this->class_list->next(i))
     {
         cls = this->class_list->nth(i);
@@ -312,16 +308,13 @@ bool ClassTable::check_structure()
         class_name_symbol = cls->get_symbol_name();
         parent_name_symbol = cls->get_parent_symbol_name();
 
-        // If the class symbol is not in the inheritance graph, add it in
         if (InheritanceGraph.find(class_name_symbol) == InheritanceGraph.end())
         {
             InheritanceGraph.insert(std::pair<Symbol, Symbol>(class_name_symbol, parent_name_symbol));
 
-            // Now fill in the list of indegrees, first update the list with this class
             if (indegree_list.find(class_name_symbol) == indegree_list.end())
                 indegree_list.insert(std::pair<Symbol, int>(class_name_symbol, 0));
 
-            // then update the parent's indegree, still first check whether it exists
             if (indegree_list.find(parent_name_symbol) == indegree_list.end())
                 indegree_list.insert(std::pair<Symbol, int>(parent_name_symbol, 1));
             else
@@ -329,10 +322,8 @@ bool ClassTable::check_structure()
         }
     }
 
-    // Now check whether the inheritance graph is a DAG
     std::queue<Symbol> no_indegree_symbols;
 
-    // First pick out all symbols with indegree 0
     for (int i = this->class_list->first(); this->class_list->more(i); i = this->class_list->next(i))
     {
         cls = this->class_list->nth(i);
@@ -341,7 +332,7 @@ bool ClassTable::check_structure()
             no_indegree_symbols.push(class_name_symbol);
     }
 
-    // Perform the topological sort
+    // topological sort
     while (!no_indegree_symbols.empty())
     {
         class_name_symbol = no_indegree_symbols.front();
@@ -597,7 +588,6 @@ void method_class::check()
 
     while (true)
     {
-        // iterate to search the valid feature line
         feature = target_class->get_method(const_cast<char *>(name->get_string()));
         if (feature != NULL)
         {
@@ -1107,8 +1097,6 @@ void object_class::check()
         type = SELF_TYPE;
         return;
     }
-    // 1. find object in symboltable
-    // 2. find object in attr_node till Object
 
     Symbol mytype = symboltable->lookup(const_cast<char *>(name->get_string()));
 
@@ -1150,7 +1138,6 @@ void object_class::check()
  */
 void program_class::semant()
 {
-    // Check class definitions
     initialize_constants();
 
     classtable = new ClassTable(classes);
